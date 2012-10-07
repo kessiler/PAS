@@ -17,8 +17,12 @@ if (!class_exists('MySQL')) {
 
         public function __connect() {
             if (!isset($this->_dbh)) {
-                if ($this->_dbh = mysql_connect(HOST, USER, PASS)) {
-                    mysql_select_db(BD, $this->_dbh);
+                if ($this->_dbh = @mysql_connect(HOST, USER, PASS)) {
+                    @mysql_select_db(BD, $this->_dbh);
+                } else {
+                    $Error = new Error();
+                    $Error->setError('Não foi possível efetuar a conexão com o MySQL.');
+                    $Error->ShowDie();
                 }
             }
             return $this;
