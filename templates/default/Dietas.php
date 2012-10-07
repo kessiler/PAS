@@ -1,10 +1,12 @@
-<? if (isset($_SESSION[SESSION_NAME])): ?>
+<?
+    $Error = new Error();
+    if (isset($_SESSION[SESSION_NAME])):
+?>
 <div id="main">
     <header>
         <div id="logo">
             <div id="logo_text">
                 <h1><a href="?">Lar da<span class="logo_colour"> Vovó</span></a></h1>
-
                 <h2>Asilo Nossa Senhora da Piedade.</h2>
             </div>
         </div>
@@ -40,12 +42,26 @@
                 <form id="dieta" method="post" action="">
                     <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
                     <p><span>Descrição</span><textarea class="textarea" rows="5" cols="50" name="descricao"></textarea></p>
+                    <p><span>Status</span>
+                        <select>
+                            <option value="S">Ativada</option>
+                            <option value="N">Desativada</option>
+                        </select>
+                    </p>
                     <input class="submit" type="submit" name="cadastrardieta" value="Cadastrar"/>
                 </form>
             </div>
+            <?
+                if (isset($_POST['cadastrardieta'])) {
+
+                   $Error->setError('O cadastro foi realizado com sucesso!');
+                   $Error->ShowSucess();
+                }
+            ?>
         </div>
     </div>
 <? else:
-
+    $Error->setError('É preciso estar logado para acessar a página!');
+    $Error->ShowDie();
 endif;
 ?>

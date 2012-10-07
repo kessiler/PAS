@@ -8,15 +8,28 @@
  */
 if (!class_exists('Error')) {
 
-    class Error
+    class  Error
     {
-        public function error($data)
-        {
-            echo '<div id="erro">'.($data).'</div>';
+        protected $_data;
+        public function __construct(){
+            $this->_data = NULL;
         }
-        public function sucess($data)
+
+        public function setError($data) {
+            $this->_data = $data;
+        }
+        public function ShowError()
         {
-            echo '<div id="sucess">'.($data).'</div>';
+            echo '<div class="error">'.($this->_data).'</div>';
+        }
+        public function ShowSucess()
+        {
+            echo '<div class="success">'.($this->_data).'</div>';
+        }
+
+        public function ShowDie()
+        {
+            echo '<div class="error">'.($this->_data).'</div>';die;
         }
 
     }
