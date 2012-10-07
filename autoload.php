@@ -15,4 +15,6 @@ function __autoload($file)
     }
 }
 
+teste
+
 ?>
