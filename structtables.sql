@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tempo de Geração: Out 07, 2012 as 09:46 PM
+-- Tempo de Geração: Out 07, 2012 as 11:04 PM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.6
 
@@ -69,6 +69,26 @@ CREATE TABLE `dieta` (
 -- --------------------------------------------------------
 
 -- 
+-- Estrutura da tabela `logoperacao`
+-- 
+
+DROP TABLE IF EXISTS `logoperacao`;
+CREATE TABLE `logoperacao` (
+  `NRSEQOPERACAO` int(11) NOT NULL auto_increment,
+  `IDOPERACAO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
+  `CDCLIENTE` int(11) NOT NULL,
+  `QTDPROD` int(11) NOT NULL,
+  PRIMARY KEY  (`NRSEQOPERACAO`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+-- 
+-- Extraindo dados da tabela `logoperacao`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
 -- Estrutura da tabela `produtos`
 -- 
 
@@ -91,6 +111,46 @@ CREATE TABLE `produtos` (
 -- --------------------------------------------------------
 
 -- 
+-- Estrutura da tabela `relacdieta`
+-- 
+
+DROP TABLE IF EXISTS `relacdieta`;
+CREATE TABLE `relacdieta` (
+  `DTOPERACAO` date NOT NULL,
+  `CDUSUARIO` int(11) NOT NULL,
+  `CDDIETA` int(11) NOT NULL,
+  `CDCLIENTE` int(11) NOT NULL,
+  PRIMARY KEY  (`DTOPERACAO`,`CDUSUARIO`,`CDDIETA`,`CDCLIENTE`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- 
+-- Extraindo dados da tabela `relacdieta`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `relacmedicamento`
+-- 
+
+DROP TABLE IF EXISTS `relacmedicamento`;
+CREATE TABLE `relacmedicamento` (
+  `DTOPERACAO` date NOT NULL,
+  `CDUSUARIO` int(11) NOT NULL,
+  `CDPRODUTO` int(11) NOT NULL,
+  `CDCLIENTE` int(11) NOT NULL,
+  PRIMARY KEY  (`CDUSUARIO`,`CDPRODUTO`,`CDCLIENTE`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- 
+-- Extraindo dados da tabela `relacmedicamento`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
 -- Estrutura da tabela `usuarios`
 -- 
 
@@ -105,7 +165,7 @@ CREATE TABLE `usuarios` (
   `IDATIVO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
   PRIMARY KEY  (`CDUSUARIO`),
   KEY `NMLOGIN` (`NMLOGIN`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 -- 
 -- Extraindo dados da tabela `usuarios`
