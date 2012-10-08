@@ -17,11 +17,10 @@ define('TITLE_SITE', 'SICG - Sistema integrado de cadastro e gerenciamento');
 /*
     Definições MySQL
 */
-define('HOST', '');
-define('USER', '');
-define('PASS', '');
-define('BD', '');
-
+define('HOST', '127.0.0.1');
+define('USER', 'root');
+define('PASS', '123');
+define('BD', 'webpas');
 
 ob_start();
 session_name(SESSION_NAME);

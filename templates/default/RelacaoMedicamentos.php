@@ -10,6 +10,7 @@
         </div>
         <nav>
             <ul class="sf-menu" id="nav">
+                <li><a href="?page=Home">Início</a>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
                         <li><a href="?page=User">Usuários</a></li>
@@ -30,6 +31,7 @@
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a>
                     </ul>
                 </li>
+                <li><a href="?page=Logout">Sair do Sistema</a>
             </ul>
         </nav>
     </header>

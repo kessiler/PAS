@@ -12,6 +12,7 @@
         </div>
         <nav>
             <ul class="sf-menu" id="nav">
+                <li><a href="?page=Home">Início</a>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
                         <li><a href="?page=User">Usuários</a></li>
@@ -32,6 +33,7 @@
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a>
                     </ul>
                 </li>
+                <li><a href="?page=Logout">Sair do Sistema</a>
             </ul>
         </nav>
     </header>
@@ -43,21 +45,23 @@
                     <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
                     <p><span>Descrição</span><textarea class="textarea" rows="5" cols="50" name="descricao"></textarea></p>
                     <p><span>Status</span>
-                        <select>
+                        <select id="sele">
                             <option value="S">Ativada</option>
                             <option value="N">Desativada</option>
                         </select>
                     </p>
                     <input class="submit" type="submit" name="cadastrardieta" value="Cadastrar"/>
                 </form>
+                <?
+                    if (isset($_POST['cadastrardieta'])) {
+                        $Dieta = new Dieta();
+                        $Dieta->setNome($_POST['nome'])
+                              ->setDescricao($_POST['descricao'])
+                              ->setStatus($_POST['sele'])
+                              ->insert();
+                    }
+                ?>
             </div>
-            <?
-                if (isset($_POST['cadastrardieta'])) {
-
-                   $Error->setError('O cadastro foi realizado com sucesso!');
-                   $Error->ShowSucess();
-                }
-            ?>
         </div>
     </div>
 <? else:

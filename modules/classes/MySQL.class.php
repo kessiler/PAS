@@ -15,22 +15,31 @@ if (!class_exists('MySQL')) {
 
         public function __construct(){}
 
-        public function __connect() {
+        public function connect() {
             if (!isset($this->_dbh)) {
                 if ($this->_dbh = @mysql_connect(HOST, USER, PASS)) {
-                    @mysql_select_db(BD, $this->_dbh);
+                    $this->_dbh = @mysql_select_db(BD, $this->_dbh);
                 } else {
                     $Error = new Error();
                     $Error->setError('Não foi possível efetuar a conexão com o MySQL.');
-                    $Error->ShowDie();
+                    $Error->ShowError();
                 }
             }
             return $this;
         }
 
-        public function execute($data)
+        public function execute()
         {
-            $this->data = mysql_query($data) or die(mysql_error());
+            $args = func_get_args();
+            $sql = array_shift($args);
+
+            for ($i=0;$i<count($args);$i++) {
+                $args[$i] = urldecode($args[$i]);
+                $args[$i] = addslashes($args[$i]);
+            }
+
+            $sql = vsprintf($sql, $args);
+            $this->_data = mysql_query($sql) or die(mysql_error());
             return $this->_data;
         }
 

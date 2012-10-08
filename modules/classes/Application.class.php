@@ -43,6 +43,9 @@ if (!class_exists('Application')) {
                     return $this->view($pg);
                 case 'RelacaoMedicamentos':
                     return $this->view($pg);
+                case 'Logout':
+                    session_destroy();
+                    header('location: ?');
                 default:
                     if (empty($pg)) {
                         if (!isset($_SESSION[SESSION_NAME])) {

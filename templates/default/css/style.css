@@ -156,7 +156,9 @@ header {
   float: left;
 }
 
-#logo h1, #logo h2 { 
+
+
+#logo h1, #logo h2 {
   font: normal 320% 'News Cycle', arial, sans-serif;
   border-bottom: 0;
   text-transform: none;
@@ -178,11 +180,12 @@ header {
   color: #444;
 }
 
-#logo_text h2 { 
+#logo_text h2 {
   font-size: 140%;
   padding: 0;
   color: #222;
 }
+
 
 nav { 
   height: 44px;
@@ -681,10 +684,14 @@ body.rtl .formError .formErrorArrow {
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url('../images/error.png');
+    width: auto;
+    height: auto;
 }
 
 .success {
     color: #4F8A10;
     background-color: #DFF2BF;
     background-image:url('../images/success.png');
+    width: auto;
+    height: auto;
 }

@@ -1,15 +1,17 @@
-<? if (isset($_SESSION[SESSION_NAME])): ?>
+<?
+$Error = new Error();
+if (isset($_SESSION[SESSION_NAME])): ?>
 <div id="main">
     <header>
         <div id="logo">
             <div id="logo_text">
                 <h1><a href="?">Lar da<span class="logo_colour"> Vovó</span></a></h1>
-
                 <h2>Asilo Nossa Senhora da Piedade.</h2>
             </div>
         </div>
         <nav>
             <ul class="sf-menu" id="nav">
+                <li><a href="?page=Home">Início</a>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
                         <li><a href="?page=User">Usuários</a></li>
@@ -30,6 +32,7 @@
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a>
                     </ul>
                 </li>
+                <li><a href="?page=Logout">Sair do Sistema</a>
             </ul>
         </nav>
     </header>
@@ -37,11 +40,11 @@
         <div id="sidebar_container">
             <div class="gallery">
                 <ul class="images">
-                    <li class="show"><img width="450" height="450" src="./images/1.jpg" alt="1"/></li>
-                    <li><img width="450" height="450" src="./images/2.jpg" alt="2"/></li>
-                    <li><img width="450" height="450" src="./images/3.jpg" alt="3"/></li>
-                    <li><img width="450" height="450" src="./images/4.jpg" alt="4"/></li>
-                    <li><img width="450" height="450" src="./images/5.jpg" alt="5"/></li>
+                    <li class="show"><img width="450" height="450" src="images/slide1.jpg" alt="1"/></li>
+                    <li><img width="450" height="450" src="images/slide2.jpg" alt="2"/></li>
+                    <li><img width="450" height="450" src="images/slide3.jpg" alt="3"/></li>
+                    <li><img width="450" height="450" src="images/slide4.jpg" alt="4"/></li>
+                    <li><img width="450" height="450" src="images/slide5.jpg" alt="5"/></li>
                 </ul>
             </div>
         </div>
@@ -70,8 +73,8 @@
         </div>
     </div>
 </div>
-<?
-    else:
-
-    endif;
+<? else:
+    $Error->setError('É preciso estar logado para acessar a página!');
+    $Error->ShowDie();
+endif;
 ?>

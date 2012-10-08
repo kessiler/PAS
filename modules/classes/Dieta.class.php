@@ -15,16 +15,49 @@ if(!class_exists('Dieta')) {
         protected $_descricao;
         protected $_status;
 
-        public function __construct($nome, $descricao, $status){
-            $this->_nome      = $nome;
+        public function __construct(){
+            $this->_Error = new Error();
+        }
+
+        public function insert() {
+        }
+
+        public function update() {
+
+        }
+
+        public function setDescricao($descricao)
+        {
             $this->_descricao = $descricao;
-            $this->_status    = $status;
+            return $this;
         }
 
-        public function __cadastrar() {
-            parent::connect();
+        public function setNome($nome)
+        {
+            $this->_nome = $nome;
+            return $this;
         }
 
+        public function setStatus($status)
+        {
+            $this->_status = $status;
+            return $this;
+        }
+
+        public function getDescricao()
+        {
+            return $this->_descricao;
+        }
+
+        public function getNome()
+        {
+            return $this->_nome;
+        }
+
+        public function getStatus()
+        {
+            return $this->_status;
+        }
     }
 }
 
