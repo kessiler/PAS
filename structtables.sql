@@ -13,6 +13,30 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Banco de Dados: `webpas`
 -- 
 
+CREATE DATABASE  `webpas` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `webpas`;
+
+-- 
+-- Estrutura da tabela `usuarios`
+-- 
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `CDUSUARIO` int(11) NOT NULL auto_increment COMMENT 'Código',
+  `NMLOGIN` varchar(50) collate utf8_bin NOT NULL COMMENT 'Login',
+  `CDSENHA` varchar(40) collate utf8_bin NOT NULL COMMENT 'Senha',
+  `CDNOME` varchar(50) collate utf8_bin NOT NULL COMMENT 'Nome',
+  `CDCPF` varchar(12) collate utf8_bin default NULL COMMENT 'CPF',
+  `IDATIVO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
+  PRIMARY KEY  (`CDUSUARIO`),
+  KEY `NMLOGIN` (`NMLOGIN`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+
+-- 
+-- Inserindo 'usuário' padrão
+-- 
+
+INSERT INTO `usuarios` VALUES (1, 0x61646d696e, 0x3230326362393632616335393037356239363462303731353264323334623730, 0x41646d696e6973747261646f72, 0x313131313131313131313131, 0x53);
 -- --------------------------------------------------------
 
 -- 
@@ -40,11 +64,6 @@ CREATE TABLE `clientes` (
   KEY `NMCLIENTE` (`NMCLIENTE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- 
--- Extraindo dados da tabela `clientes`
--- 
-
-
 -- --------------------------------------------------------
 
 -- 
@@ -61,11 +80,6 @@ CREATE TABLE `dieta` (
   KEY `NMDIETA` (`NMDIETA`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- 
--- Extraindo dados da tabela `dieta`
--- 
-
-
 -- --------------------------------------------------------
 
 -- 
@@ -81,10 +95,7 @@ CREATE TABLE `logoperacao` (
   PRIMARY KEY  (`NRSEQOPERACAO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- 
--- Extraindo dados da tabela `logoperacao`
--- 
-
+ALTER TABLE `logoperacao` ADD CONSTRAINT FK_CLIENTE FOREIGN KEY (`CDCLIENTE`) REFERENCES `clientes` (`CDCLIENTE`);
 
 -- --------------------------------------------------------
 
@@ -103,11 +114,6 @@ CREATE TABLE `produtos` (
   KEY `NMPRODUTO` (`NMPRODUTO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
--- 
--- Extraindo dados da tabela `produtos`
--- 
-
-
 -- --------------------------------------------------------
 
 -- 
@@ -123,9 +129,9 @@ CREATE TABLE `relacdieta` (
   PRIMARY KEY  (`DTOPERACAO`,`CDUSUARIO`,`CDDIETA`,`CDCLIENTE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 
--- Extraindo dados da tabela `relacdieta`
--- 
+ALTER TABLE `usuarios` ADD CONSTRAINT FK_USUARIO_DIE FOREIGN KEY (`CDUSUARIO`) REFERENCES `usuarios` (`CDUSUARIO`);
+ALTER TABLE `dieta` ADD CONSTRAINT FK_DIETA FOREIGN KEY (`CDDIETA`) REFERENCES `dieta` (`CDDIETA`);
+ALTER TABLE `clientes` ADD CONSTRAINT FK_CLIENTE_DIE FOREIGN KEY (`CDCLIENTE`) REFERENCES `clientes` (`CDCLIENTE`);
 
 
 -- --------------------------------------------------------
@@ -143,32 +149,10 @@ CREATE TABLE `relacmedicamento` (
   PRIMARY KEY  (`CDUSUARIO`,`CDPRODUTO`,`CDCLIENTE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 
--- Extraindo dados da tabela `relacmedicamento`
--- 
+ALTER TABLE `usuarios` ADD CONSTRAINT FK_USUARIO_MED FOREIGN KEY (`CDUSUARIO`) REFERENCES `usuarios` (`CDUSUARIO`);
+ALTER TABLE `produtos` ADD CONSTRAINT FK_PRODUTOS_MED FOREIGN KEY (`CDPRODUTO`) REFERENCES `produtos` (`CDPRODUTO`);
+ALTER TABLE `clientes` ADD CONSTRAINT FK_CLIENTE_MED FOREIGN KEY (`CDCLIENTE`) REFERENCES `clientes` (`CDCLIENTE`);
 
 
--- --------------------------------------------------------
 
--- 
--- Estrutura da tabela `usuarios`
--- 
 
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `CDUSUARIO` int(11) NOT NULL auto_increment COMMENT 'Código',
-  `NMLOGIN` varchar(50) collate utf8_bin NOT NULL COMMENT 'Login',
-  `CDSENHA` varchar(40) collate utf8_bin NOT NULL COMMENT 'Senha',
-  `IDADMIN` varchar(1) collate utf8_bin NOT NULL COMMENT 'A ou M / admin ou membro',
-  `CDNOME` varchar(50) collate utf8_bin NOT NULL COMMENT 'Nome',
-  `CDCPF` varchar(12) collate utf8_bin default NULL COMMENT 'CPF',
-  `IDATIVO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
-  PRIMARY KEY  (`CDUSUARIO`),
-  KEY `NMLOGIN` (`NMLOGIN`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
-
--- 
--- Extraindo dados da tabela `usuarios`
--- 
-
-INSERT INTO `usuarios` VALUES (1, 0x61646d696e, 0x3230326362393632616335393037356239363462303731353264323334623730, 0x41, 0x41646d696e6973747261646f72, 0x313131313131313131313131, 0x53);
