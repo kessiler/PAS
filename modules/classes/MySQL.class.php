@@ -37,10 +37,9 @@ if (!class_exists('MySQL')) {
                 $args[$i] = urldecode($args[$i]);
                 $args[$i] = addslashes($args[$i]);
             }
-
             $sql = vsprintf($sql, $args);
+            self::connect();
             $this->_data = mysql_query($sql) or die(mysql_error());
-            return $this->_data;
         }
 
         public function fetch($fp = 'assoc')

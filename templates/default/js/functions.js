@@ -11,5 +11,12 @@ $(document).ready(function () {
     $("#login .submit").click(function() {
         $("#login").validationEngine();
     })
+    $("#dieta .submit").click(function() {
+        $("#dieta").validationEngine();
+    })
+    $("#table .insert").click(function() {
+        $("#table").css("display","none");
+        $("#frmDieta").css("display","block");
+    })
 
 });

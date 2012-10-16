@@ -1,6 +1,8 @@
 <?
     $Error = new Error();
     if (isset($_SESSION[SESSION_NAME])):
+        $Dieta = new Dieta();
+        $arrValue = $Dieta->getAllDieta();
 ?>
 <div id="main">
     <header>
@@ -39,13 +41,52 @@
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Cadastro de Dietas</h1>
-            <div class="form_settings">
+            <h1>Dietas</h1>
+            <?
+                if(empty($arrValue)) {
+                    $Error->setError('Não há dieta cadastrada!');
+                    $Error->ShowError();
+                }
+            ?>
+            <div id="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?
+                        if(!empty($arrValue)):
+                            foreach($arrValue as $value):
+                    ?>
+                    <tr>
+                        <th><?=$value['CDDIETA']?></th>
+                        <td><?=$value['NMDIETA']?></td>
+                        <td><?=$value['DSDIETA']?></td>
+                        <td><?=$value['IDATIVO']?></td>
+                        <th class="update">Alterar</th>
+                        <th class="delete">Excluir</th>
+                    </tr>
+                    <?
+                            endforeach;
+                        endif;
+                    ?>
+                    <tr>
+                        <th class="insert">Incluir</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form_settings" id="frmDieta" style="display: none;">
                 <form id="dieta" method="post" action="">
                     <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
-                    <p><span>Descrição</span><textarea class="textarea" rows="5" cols="50" name="descricao"></textarea></p>
+                    <p><span>Descrição</span><textarea class="validate[required] text-input" rows="5" cols="50" name="descricao"></textarea></p>
                     <p><span>Status</span>
-                        <select id="sele">
+                        <select id="sele" name="sele">
                             <option value="S">Ativada</option>
                             <option value="N">Desativada</option>
                         </select>
@@ -54,11 +95,11 @@
                 </form>
                 <?
                     if (isset($_POST['cadastrardieta'])) {
-                        $Dieta = new Dieta();
                         $Dieta->setNome($_POST['nome'])
                               ->setDescricao($_POST['descricao'])
                               ->setStatus($_POST['sele'])
                               ->insert();
+                        unset($_POST['cadastrardieta']);
                     }
                 ?>
             </div>

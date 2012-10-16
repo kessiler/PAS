@@ -341,11 +341,44 @@ table tr th, table tr td {
   padding: 7px 4px;
   text-align: left;
 }
-  
+
+th.update {
+    background-image: url(../images/update.png);
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    text-align: right;
+    width: 60px;
+    cursor: pointer;
+}
+
+th.delete {
+    background-image: url(../images/delete.png);
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    text-align: right;
+    width: 60px;
+    cursor: pointer;
+}
+
+th.insert {
+    background-image: url(../images/new.png);
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    text-align: right;
+    width: 57px;
+    cursor: pointer;
+}
+
 table tr td { 
   background: #D3F2F7;
   color: #47433F;
   border-top: 1px solid #FFF;
+}
+
+#table {
+    margin-left:auto;
+    margin-right:auto;
+    width:50%;
 }
 
 ul.images {
