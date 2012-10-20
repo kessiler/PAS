@@ -40,6 +40,7 @@ if (!class_exists('MySQL')) {
             $sql = vsprintf($sql, $args);
             self::connect();
             $this->_data = mysql_query($sql) or die(mysql_error());
+            return true;
         }
 
         public function fetch($fp = 'assoc')

@@ -14,6 +14,18 @@ if (!class_exists('Dieta')) {
         protected $_nome;
         protected $_descricao;
         protected $_status;
+        protected $_id;
+
+        public function setId($id)
+        {
+            $this->_id = $id;
+            return $this;
+        }
+
+        public function getId()
+        {
+            return $this->_id;
+        }
 
         public function __construct()
         {
@@ -36,6 +48,25 @@ if (!class_exists('Dieta')) {
 
         public function update()
         {
+            if ($this->execute("UPDATE DIETA
+                                SET NMDIETA = '%s',
+                                 DSDIETA = '%s',
+                                 IDATIVO = '%s'
+                                WHERE CDDIETA = '%s'",
+                $this->getNome(),
+                $this->getDescricao(),
+                $this->getStatus(), $this->getId())
+            ) {
+                $this->_Error->setError('Alteração realizada com sucesso!');
+                $this->_Error->ShowSucess();
+            }
+        }
+
+        public function delete($id){
+            if($this->execute("DELETE FROM DIETA WHERE CDDIETA = '%s'", $id)) {
+               $this->_Error->setError('A dieta foi excluída com sucesso!');
+               $this->_Error->ShowSucess();
+            }
         }
 
         public function getAllDieta() {
@@ -45,6 +76,23 @@ if (!class_exists('Dieta')) {
                 $array[] = $row;
             }
             return $array;
+        }
+
+        public function getDietaById($id) {
+            $this->execute("SELECT CDDIETA, NMDIETA, DSDIETA, IDATIVO
+                              FROM DIETA
+                             WHERE CDDIETA = '%s'
+                            ORDER BY CDDIETA, NMDIETA", $id);
+            return $this->fetch();
+        }
+
+        public function getStatusColor($status) {
+            if($status == 'S') {
+                $status = "<b><font color='#008000'>Ativada</font></b>";
+            } else {
+                $status = "</b><font color='#FF0000'>Desativada</font></b>";
+            }
+            return $status;
         }
 
         public function setDescricao($descricao)
@@ -80,5 +128,6 @@ if (!class_exists('Dieta')) {
             return $this->_status;
         }
     }
-}
 
+}
+?>

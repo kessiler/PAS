@@ -67,41 +67,19 @@
                         <th><?=$value['CDDIETA']?></th>
                         <td><?=$value['NMDIETA']?></td>
                         <td><?=$value['DSDIETA']?></td>
-                        <td><?=$value['IDATIVO']?></td>
-                        <th class="update">Alterar</th>
-                        <th class="delete">Excluir</th>
+                        <td><?=$Dieta->getStatusColor($value['IDATIVO'])?></td>
+                        <th class="update" id="AlterDieta"><a href="?page=DietasAlter&id=<?=$value['CDDIETA']?>" style="text-decoration: none; color: #FFFFFF;">Alterar</a></th>
+                        <th class="delete" id="ExclDieta"><a href="?page=DietasExcl&id=<?=$value['CDDIETA']?>" style="text-decoration: none; color: #FFFFFF;">Excluir</a></th>
                     </tr>
                     <?
                             endforeach;
                         endif;
                     ?>
                     <tr>
-                        <th class="insert">Incluir</th>
+                        <th class="insert" id="InsDieta"><a href="?page=DietasCad" style="text-decoration: none; color: #FFFFFF;">Incluir</a></th>
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="form_settings" id="frmDieta" style="display: none;">
-                <form id="dieta" method="post" action="">
-                    <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
-                    <p><span>Descrição</span><textarea class="validate[required] text-input" rows="5" cols="50" name="descricao"></textarea></p>
-                    <p><span>Status</span>
-                        <select id="sele" name="sele">
-                            <option value="S">Ativada</option>
-                            <option value="N">Desativada</option>
-                        </select>
-                    </p>
-                    <input class="submit" type="submit" name="cadastrardieta" value="Cadastrar"/>
-                </form>
-                <?
-                    if (isset($_POST['cadastrardieta'])) {
-                        $Dieta->setNome($_POST['nome'])
-                              ->setDescricao($_POST['descricao'])
-                              ->setStatus($_POST['sele'])
-                              ->insert();
-                        unset($_POST['cadastrardieta']);
-                    }
-                ?>
             </div>
         </div>
     </div>

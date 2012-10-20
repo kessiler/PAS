@@ -35,6 +35,12 @@ if (!class_exists('Application')) {
                     return $this->view($pg);
                 case 'Dietas':
                     return $this->view($pg);
+                case 'DietasCad':
+                    return $this->view($pg);
+                case 'DietasAlter':
+                    return $this->view($pg);
+                case 'DietasExcl':
+                    return $this->view($pg);
                 case 'EntradaAtivos':
                     return $this->view($pg);
                 case 'SaidaAtivos':

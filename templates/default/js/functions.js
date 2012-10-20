@@ -14,9 +14,4 @@ $(document).ready(function () {
     $("#dieta .submit").click(function() {
         $("#dieta").validationEngine();
     })
-    $("#table .insert").click(function() {
-        $("#table").css("display","none");
-        $("#frmDieta").css("display","block");
-    })
-
 });
