@@ -60,12 +60,12 @@ if (isset($_SESSION[SESSION_NAME])):
                     <p><span>Descrição</span><textarea class="validate[required] text-input" rows="5" cols="50" name="descricao"><?=$row['DSDIETA'];?></textarea></p>
                     <p><span>Status</span>
                         <select id="sele" name="sele">
-                            <option value="S">Ativada</option>
-                            <option value="N">Desativada</option>
+                            <option <?($row['IDATIVO'] == 'S') ? print 'selected="selected"' : "";?> value="S">Ativada</option>
+                            <option <?($row['IDATIVO'] == 'N') ? print 'selected="selected"' : "";?> value="N">Desativada</option>
                         </select>
                     </p>
                     <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
-                    <input class="submit" type="submit" name="alterardieta" style="margin: 0 0 0 100px;" value="Alterar"/>
+                    <input class="submit" type="submit" name="alterardieta" style="margin: 10px 0 0 100px;" value="Alterar"/>
                     <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 100px;"/>
                 </form>
             </div>

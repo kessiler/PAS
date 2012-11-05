@@ -7,13 +7,13 @@
  * To change this template use File | Settings | File Templates.
  */
 
-if (!class_exists('Dieta')) {
+if (!class_exists('Produto')) {
 
-    class Dieta extends MySQL
+    class Produto extends MySQL
     {
         protected $_nome;
         protected $_descricao;
-        protected $_status;
+        protected $_tipoprod;
         protected $_id;
 
         public function setId($id)
@@ -34,11 +34,11 @@ if (!class_exists('Dieta')) {
 
         public function insert()
         {
-            if ($this->execute("INSERT INTO DIETA(NMDIETA, DSDIETA, IDATIVO)
+            if ($this->execute("INSERT INTO PRODUTOS(NMPRODUTO, DSPRODUTO, TIPOPROD)
                                     VALUES ('%s', '%s', '%s')",
                 $this->getNome(),
                 $this->getDescricao(),
-                $this->getStatus())
+                $this->getTipoProd())
             ) {
                 $this->_Error->setError('O cadastro foi realizado com sucesso!');
                 $this->_Error->ShowSucess();
@@ -48,29 +48,29 @@ if (!class_exists('Dieta')) {
 
         public function update()
         {
-            if ($this->execute("UPDATE DIETA
-                                SET NMDIETA = '%s',
-                                 DSDIETA = '%s',
-                                 IDATIVO = '%s'
-                                WHERE CDDIETA = '%s'",
+            if ($this->execute("UPDATE PRODUTOS
+                                SET NMPRODUTO = '%s',
+                                 DSPRODUTO = '%s',
+                                 TIPOPROD = '%s'
+                                WHERE  CDPRODUTO = '%s'",
                 $this->getNome(),
                 $this->getDescricao(),
-                $this->getStatus(), $this->getId())
+                $this->getTipoProd(), $this->getId())
             ) {
-                $this->_Error->setError('Alteração realizada com sucesso!');
+                $this->_Error->setError('O produto foi alterado com sucesso!');
                 $this->_Error->ShowSucess();
             }
         }
 
         public function delete($id){
-            if($this->execute("DELETE FROM DIETA WHERE CDDIETA = '%s'", $id)) {
-               $this->_Error->setError('A dieta foi excluída com sucesso!');
+            if($this->execute("DELETE FROM PRODUTOS WHERE CDPRODUTO = '%s'", $id)) {
+               $this->_Error->setError('O produto foi excluída com sucesso!');
                $this->_Error->ShowSucess();
             }
         }
 
-        public function getAllDieta() {
-            $this->execute('SELECT CDDIETA, NMDIETA, DSDIETA, IDATIVO FROM DIETA ORDER BY CDDIETA, NMDIETA');
+        public function getAllProduto() {
+            $this->execute('SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD FROM PRODUTOS ORDER BY CDPRODUTO, NMPRODUTO');
             $array = array();
             while($row = $this->fetch()){
                 $array[] = $row;
@@ -78,22 +78,24 @@ if (!class_exists('Dieta')) {
             return $array;
         }
 
-        public function getDietaById($id) {
-            $this->execute("SELECT CDDIETA, NMDIETA, DSDIETA, IDATIVO
-                              FROM DIETA
-                             WHERE CDDIETA = '%s'
-                            ORDER BY CDDIETA, NMDIETA", $id);
+        public function getProdutoById($id) {
+            $this->execute("SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD
+                              FROM PRODUTOS
+                             WHERE CDPRODUTO = '%s'
+                            ORDER BY CDPRODUTO, NMPRODUTO", $id);
             return $this->fetch();
         }
 
         public function getStatusColor($status) {
-            if($status == 'S') {
-                $status = "<b><font color='#008000'>Ativada</font></b>";
-            } else {
-                $status = "<b><font color='#FF0000'>Desativada</font></b>";
+            switch($status) {
+                case 'M': $status = "<b><font color='#000000'>Medicamento</font></b>";break;
+                case 'A': $status = "<b><font color='#2E8B57'>Alimentar</font></b>";break;
+                case 'O': $status = "<b><font color='#FF0000'>Outros</font></b>";break;
+                default : break;
             }
             return $status;
         }
+
 
         public function setDescricao($descricao)
         {
@@ -107,9 +109,9 @@ if (!class_exists('Dieta')) {
             return $this;
         }
 
-        public function setStatus($status)
+        public function setTipoProd($status)
         {
-            $this->_status = $status;
+            $this->_tipoprod = $status;
             return $this;
         }
 
@@ -123,9 +125,9 @@ if (!class_exists('Dieta')) {
             return $this->_nome;
         }
 
-        public function getStatus()
+        public function getTipoProd()
         {
-            return $this->_status;
+            return $this->_tipoprod;
         }
     }
 

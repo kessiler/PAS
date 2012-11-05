@@ -24,6 +24,7 @@ define('BD', 'webpas');
 
 /* Definição do diretório de fontes para PDF */
 define('FPDF_FONTPATH', CORE.DIRECTORY_SEPARATOR.'font');
+date_default_timezone_set('America/Sao_Paulo');
 
 ob_start();
 session_name(SESSION_NAME);

@@ -1,4 +1,9 @@
-<? if (isset($_SESSION[SESSION_NAME])): ?>
+<?
+    $Error = new Error();
+    if (isset($_SESSION[SESSION_NAME])):
+        $Produto = new Produto();
+        $arrValue = $Produto->getAllProduto();
+?>
 <div id="main">
     <header>
         <div id="logo">
@@ -37,17 +42,50 @@
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Cadastro de Produtos</h1>
-            <div class="form_settings">
-                <form id="dieta" method="post" action="">
-                    <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
-                    <p><span>Descrição</span><textarea class="textarea" rows="5" cols="50" name="descricao"></textarea></p>
-                    <input class="submit" type="submit" name="cadastrardieta" value="Cadastrar"/>
-                </form>
-            </div>
+            <h1>Produtos</h1>
+			<?
+				 if(empty($arrValue)) {
+                    $Error->setError('Não há produto cadastrado!');
+                    $Error->ShowError();
+                }
+            ?>
+            <div id="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Tipo de Produto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?
+                        if(!empty($arrValue)):
+                            foreach($arrValue as $value):
+                    ?>
+                    <tr>
+                        <th><?=$value['CDPRODUTO']?></th>
+                        <td><?=$value['NMPRODUTO']?></td>
+                        <td><?=$value['DSPRODUTO']?></td>
+						<td><?=$Produto->getStatusColor($value['TIPOPROD'])?></td>
+                        <th class="update" id="AlterDieta"><a href="?page=ProdutosAlter&id=<?=$value['CDPRODUTO']?>" style="text-decoration: none; color: #FFFFFF;">Alterar</a></th>
+                        <th class="delete" id="ExclDieta"><a href="?page=ProdutosExcl&id=<?=$value['CDPRODUTO']?>" style="text-decoration: none; color: #FFFFFF;">Excluir</a></th>
+                    </tr>
+                    <?
+                            endforeach;
+                        endif;
+                    ?>
+                    <tr>
+                        <th class="insert" id="InsProduto"><a href="?page=ProdutosCad" style="text-decoration: none; color: #FFFFFF;">Incluir</a></th>
+                    </tr>
+                    </tbody>
+                </table>
+			</div>
         </div>
     </div>
 <? else:
-
+    $Error->setError('É preciso estar logado para acessar a página!');
+    $Error->ShowDie();
 endif;
 ?>

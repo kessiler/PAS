@@ -31,7 +31,17 @@ if (!class_exists('Application')) {
                     return $this->view($pg);
                 case 'Idosos':
                     return $this->view($pg);
+                case 'IdososAlter':
+                    return $this->view($pg);
+                case 'IdososCad':
+                    return $this->view($pg);
                 case 'Produtos':
+                    return $this->view($pg);
+                case 'ProdutosCad':
+                    return $this->view($pg);
+                case 'ProdutosAlter':
+                    return $this->view($pg);
+                case 'ProdutosExcl':
                     return $this->view($pg);
                 case 'Dietas':
                     return $this->view($pg);

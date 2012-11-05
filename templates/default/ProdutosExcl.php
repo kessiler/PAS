@@ -1,8 +1,8 @@
-<?
+<? 
 $Error = new Error();
-if (isset($_SESSION[SESSION_NAME])):
-    $Dieta = new Dieta();
-    ?>
+if (isset($_SESSION[SESSION_NAME])): 
+	$Produto = new Produto();
+	?>
 <div id="main">
     <header>
         <div id="logo">
@@ -41,37 +41,23 @@ if (isset($_SESSION[SESSION_NAME])):
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Cadastrar Dietas</h1>
+            <h1>Confirma exclusão do Produto?</h1>
             <?
-            if (isset($_POST['cadastrardieta'])) :
-                $Dieta->setNome($_POST['nome'])
-                    ->setDescricao($_POST['descricao'])
-                    ->setStatus($_POST['sele'])
-                    ->insert();
-                unset($_POST['cadastrardieta']);
+            if (isset($_POST['sim'])) :
+                $Produto->delete($_POST['Id']);
+                unset($_POST);
                 ?>
                 <div class="back"><a onclick="history.go(-2);">Voltar</a></div>
-                <?
-            else:
+                <? elseif (isset($_POST['nao'])):
+                    echo "<script>history.go(-2);</script>";
+             else:
                 ?>
-                <div class="form_settings" id="frmDieta">
-                    <form id="dieta" method="post" action="">
-                        <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome"
-                                                   value=""/></p>
-
-                        <p><span>Descrição</span><textarea class="validate[required] text-input" rows="5" cols="50"
-                                                           name="descricao"></textarea></p>
-
-                        <p><span>Status</span>
-                            <select id="sele" name="sele">
-                                <option value="S">Ativada</option>
-                                <option value="N">Desativada</option>
-                            </select>
-                        </p>
-                        <input class="submit" type="submit" name="cadastrardieta" style="margin: 0 0 0 80px;"
-                               value="Cadastrar"/>
-                        <input class="submit" type="reset" value="Limpar" style="margin: 10px 0 0 15px;"/>
-                        <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 15px;"/>
+                <div class="form_settings" id="frmProduto">
+                    <form id="produto" method="post" action="">
+                        <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
+                        <input class="submit" type="submit" name="sim" style="margin: 0 0 0 0px;"
+                               value="Sim"/>
+                        <input class="submit" type="submit" name="nao" value="Não" style="margin: 0 0 0 40px;"/>
                     </form>
                 </div>
                 <? endif;?>

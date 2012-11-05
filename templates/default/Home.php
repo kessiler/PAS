@@ -40,11 +40,11 @@ if (isset($_SESSION[SESSION_NAME])): ?>
         <div id="sidebar_container">
             <div class="gallery">
                 <ul class="images">
-                    <li class="show"><img width="450" height="450" src="images/slide1.jpg" alt="1"/></li>
-                    <li><img width="450" height="450" src="images/slide2.jpg" alt="2"/></li>
-                    <li><img width="450" height="450" src="images/slide3.jpg" alt="3"/></li>
-                    <li><img width="450" height="450" src="images/slide4.jpg" alt="4"/></li>
-                    <li><img width="450" height="450" src="images/slide5.jpg" alt="5"/></li>
+                    <li class="show"><img width="450" height="450" src="./templates/default/images/slide1.jpg" alt="1"/></li>
+                    <li><img width="450" height="450" src="./templates/default/images/slide2.jpg" alt="2"/></li>
+                    <li><img width="450" height="450" src="./templates/default/images/slide3.jpg" alt="3"/></li>
+                    <li><img width="450" height="450" src="./templates/default/images/slide4.jpg" alt="4"/></li>
+                    <li><img width="450" height="450" src="./templates/default/images/slide5.jpg" alt="5"/></li>
                 </ul>
             </div>
         </div>

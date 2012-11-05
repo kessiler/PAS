@@ -89,6 +89,7 @@ CREATE TABLE `dieta` (
 DROP TABLE IF EXISTS `logoperacao`;
 CREATE TABLE `logoperacao` (
   `NRSEQOPERACAO` int(11) NOT NULL auto_increment,
+  `DTOPERACAO` date NOT NULL,
   `IDOPERACAO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
   `CDCLIENTE` int(11) NOT NULL,
   `QTDPROD` int(11) NOT NULL,
