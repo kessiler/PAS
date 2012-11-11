@@ -30,10 +30,10 @@ if (!class_exists('Login')) {
 
         private function validate()
         {
-            $this->execute("SELECT COUNT(1) as QTD FROM USUARIOS WHERE NMLOGIN = '%s' AND CDSENHA = MD5('%s')", $this->_fields['NMLOGIN'], $this->_fields['CDSENHA']);
+            $this->execute("SELECT COUNT(1) as QTD, CDUSUARIO FROM USUARIOS WHERE NMLOGIN = '%s' AND CDSENHA = MD5('%s') AND IDATIVO = 'S' GROUP BY CDUSUARIO", $this->_fields['NMLOGIN'], $this->_fields['CDSENHA']);
             $row = $this->fetch();
             if(((int)$row['QTD']) > 0 ){
-                $_SESSION[SESSION_NAME] = array('USER' => $this->_fields['NMLOGIN'], 'SENHA' => $this->_fields['CDSENHA']);
+                $_SESSION[SESSION_NAME] = array('USER' => $this->_fields['NMLOGIN'], 'SENHA' => $this->_fields['CDSENHA'], 'IDUSER' => $row['CDUSUARIO']);
                 session_write_close();
                 header('Location: ?page=Home');
             } else {

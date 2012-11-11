@@ -17,7 +17,7 @@ if (isset($_SESSION[SESSION_NAME])):
                 <li><a href="?page=Home">Início</a></li>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
-                        <li><a href="?page=User">Usuários</a></li>
+                        <li><a href="?page=Usuarios">Usuários</a></li>
                         <li><a href="?page=Idosos">Idosos</a></li>
                         <li><a href="?page=Produtos">Produtos</a></li>
                         <li><a href="?page=Dietas">Dietas</a></li>
@@ -33,6 +33,12 @@ if (isset($_SESSION[SESSION_NAME])):
                     <ul>
                         <li><a href="?page=RelacaoDietas">Relação de Dietas</a></li>
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a></li>
+                        <li><a href="javascript: void(Group4);">Relatórios de Estoque</a>
+                            <ul>
+                                <li><a href="?page=PosicaoEstoque">Posição de estoque</a></li>
+                                <li><a href="?page=LogAtivos">Saída/Entrada Ativos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="?page=Logout">Sair do Sistema</a></li>
@@ -49,71 +55,75 @@ if (isset($_SESSION[SESSION_NAME])):
                     ->setResponsavel($_POST['responsavel'])
                     ->setParentesco($_POST['parentesco'])
                     ->setConvenio($_POST['convenio'])
-                    ->setBebe($_POST['alcool'])
+                    ->setBebe($_POST['bebida'])
                     ->setFuma($_POST['fuma'])
-                    ->setVicio($_POST['vicio'])
+                    ->setVicio($_POST['vicios'])
                     ->setEscolaridade($_POST['escolaridade'])
-                    ->setProfissao($_POST['prifissão'])
+                    ->setProfissao($_POST['profissao'])
                     ->setCivil($_POST['civil'])
                     ->setFilhos($_POST['filho'])
                     ->setQTfilhos($_POST['quantindade_fi'])
+                    ->setAvaliacao($_POST['avaliacao'])
                     ->insert();
                 unset($_POST['cadastraridoso']);
                 ?>
                 <div class="back"><a onclick="history.go(-2);">Voltar</a></div>
-                <? else:
-                ?>
+                <? else: ?>
                 <div class="form_settings" id="cadastro">
                     <form id="cadastro_vovo" method="post" action="">
-                        <p><span>Nome Completo:</span><input class="validate[required] text-input" style="width: 350px;"
+                        <p><span style="width: 120px">Nome Completo:</span><input class="validate[required] text-input"
+															 style="width: 350px;"
                                                              type="text" name="nome" value=""/></p>
 
-                        <p><span>Data de nascimento:</span><input class="validate[required] text-input"
-                                                                  style="width: 75px;" type="text" name="nascimento"
-                                                                  value=""/></p>
+                        <p><span style="width: 120px">Data de Nascimento:</span><input class="validate[required] text-input"
+                                                                  style="width: 100px;" id="dtnascimento" type="text" name="nascimento"
+                                                                  value="" onfocus="datePicker('#dtnascimento');" onkeypress="mask(this, event,  '??/??/????');"/></p>
 
-                        <p><span>Nome do responsavel:</span><input class="validate[required] text-input"
+                        <p><span style="width: 120px">Nome do Responsável:</span><input
                                                                    style="width: 350px;" type="text" name="responsavel"
                                                                    value=""/></p>
 
-                        <p><span>Grau de parentesco:</span><input class="validate[required] text-input"
+                        <p><span style="width: 120px">Grau de Parentesco: </span><input
                                                                   style="width: 150px;" type="text" name="parentesco"
                                                                   value=""/></p>
 
-                        <p><span>Convenio medico:</span> <input class="validate[required] text-input"
+                        <p><span style="width: 120px">Convênio médico:</span> <input
                                                                 style="width: 200px;"
                                                                 type="text" name="convenio" value=""/></p>
 
-                        <p><input style="width:1px;" type=checkbox name=alcool><span>Ingere bebidas alcoólicas</span>
-                        </p>
+                        <p><span style="width: 150px">Ingere bebidas alcoólicas?</span><input class="checkbox" type="radio" name="bebida" value="S">Sim
+                                                                              <input class="checkbox" style="margin: 0 0 0 30px" type="radio" checked="checked" name="bebida" value="N">Não
+                        <p><span style="width: 150px">Fuma?</span><input class="checkbox" type="radio" name="fuma" value="S">Sim
+                                                         <input class="checkbox" style="margin: 0 0 0 30px" type="radio" checked="checked" name="fuma" value="N">Não</p>
+						<p><span style="width: 120px">Vícios:</span><textarea rows="5" cols="50"
+                                                         name="vicios"></textarea></p>
 
-                        <p><input style="width:1px;" type=checkbox name=fuma><span>Fuma</span></p>
-
-                        <p><input style="width:1px;" type=checkbox name=vicio><span>Possui algum vicio </span></p>
-
-                        <p><span>Grau de instrução:</span> <input class="validate[required] text-input"
+                        <p><span style="width: 120px">Grau de instrução:</span> <input
                                                                   style="width: 150px;" type="text" name="escolaridade"
                                                                   value=""/></p>
 
-                        <p><span>Profissão:</span> <input class="validate[required] text-input" style="width: 200px;"
-                                                          type="text" name="prifissão" value=""/></p>
+                        <p><span style="width: 120px">Profissão:</span> <input  style="width: 200px;"
+                                                          type="text" name="profissao" value=""/></p>
 
-                        <p><span>Possui filhos:</span></p><input style="width:60px;" type="radio" name="filho">Sim
-                        <input style="width:60px;" type="radio" name="filho">Não
-
-                        <p><span>Quantos:</span> <input type="text" name="quantindade_fi" value=" "></p>
+                        <p><span style="width: 120px">Possui filhos:</span></p><input class="checkbox" type="radio" name="filho" value="S" onclick="$('.qtdfilhos').css('display', '');">Sim
+                        <input class="checkbox" style="margin: 0 0 0 30px" type="radio" checked="checked" name="filho" value="N" onclick="$('.qtdfilhos').css('display', 'none');">Não
+                        <p class="qtdfilhos" style="display: none"><span style="width: 120px">Quantos:</span><input type="text" style="width: 50px" name="quantindade_fi" value="0"></p>
 
                         <p>
-                            <span>Estado Civil:</span>
+                            <span style="width: 120px">Estado Civil:</span>
                             <select style="width: 110px;" name="civil">
-                                <option value="Solteira">Solteiro(a)</option>
-                                <option value="Casada">Casado(a)</option>
-                                <option value="Viuva">Viuvo(a)</option>
-                                <option value="Divorciada">Divorciado(a)</option>
+                            <option value="S"><span>Solteiro(a)</span></option>
+							<option value="C"><span>Casado(a)</span></option>
+							<option value="V"><span>Viuvo(a)</span></option>
+							<option value="D"><span>Divorciado(a)</span></option>
                             </select>
                         </p>
-                        <input class="submit" type="submit" name="cadastraridoso" style="margin: 20px 0 0 80px;" value="Cadastrar"/>
-                        <input class="submit" type="reset" value="Limpar" style="margin: 0 0 0 20px;"/>
+                        <p><span style="width: 120px">Avaliação Médica:</span><textarea rows="5" cols="50"
+                                                                              name="avaliacao"></textarea></p>
+
+                        <hr>
+                        <input class="submit" type="submit" name="cadastraridoso" style="margin: 10px 0 0 0px;" value="Cadastrar"/>
+                        <input class="submit" type="reset" value="Limpar" style="margin: 0 0 0 20px;" onclick="$('.qtdfilhos').css('display', 'none');"/>
                         <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 20px;"/>
                     </form>
                 </div>

@@ -2,6 +2,7 @@
     <p>&copy; 2012 - All Rights Reserved. | Desenvolvido pelo grupo 4.</a></p>
 </footer>
 <!-- javascript of page -->
+
 <script type="text/javascript" src="./templates/default/js/jquery.js"></script>
 <script type="text/javascript" src="./templates/default/js/jquery-ui.js"></script>
 <script type="text/javascript" src="./templates/default/js/jquery.validateEngine.js"></script>

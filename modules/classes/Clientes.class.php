@@ -19,6 +19,18 @@ if (!class_exists('Clientes'))
 		protected $_IDfilhos;
 		protected $_QTfilhos;
 		protected $_IDcliente;
+        protected $_avaliacao;
+
+        public function setAvaliacao($avaliacao)
+        {
+            $this->_avaliacao = $avaliacao;
+            return $this;
+        }
+
+        public function getAvaliacao()
+        {
+            return $this->_avaliacao;
+        }
 	
 		public function setId($id)
         {
@@ -28,7 +40,7 @@ if (!class_exists('Clientes'))
 
         public function getId()
         {
-            return $this->_IDclientes;
+            return $this->_IDcliente;
         }
 		public function __construct()
         {
@@ -36,12 +48,12 @@ if (!class_exists('Clientes'))
         }
 		public function insert()
         {
-            if ($this->execute("INSERT INTO clientes(NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS)
-                                    VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+            $date = date_create($this->getNascimento());
+            if ($this->execute("INSERT INTO clientes(NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS, AVALIACAOMEDICA)
+                                    VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                  $this->getNome(),
-                 $this->getNascimento(),
+                 $date->format('Y-m-d'),
 				 $this->getResponsavel(),
-				 $this->getParentesco(),
 				 $this->getParentesco(),
 				 $this->getConvenio(),
 				 $this->getBebe(),
@@ -51,7 +63,8 @@ if (!class_exists('Clientes'))
 				 $this->getProfissao(),
 				 $this->getCivil(),
 				 $this->getFilhos(),
-				 $this->getQTfilhos())
+				 $this->getQTfilhos(),
+                 $this->getAvaliacao())
 				) {
 					$this->_Error->setError('O cadastro foi realizado com sucesso!');
 					$this->_Error->ShowSucess();
@@ -116,9 +129,9 @@ if (!class_exists('Clientes'))
 		public function getStatusbebe($bebe)
 		{
             if($bebe == true) {
-                $bebe = "<b><font color='#008000'>Não</font></b>";
+                $bebe = "Sim";
             } else {
-                $bebe = "</b><font color='#FF0000'>Sim</font></b>";
+                $bebe = "Não";
             }
             return $bebe;
         }
@@ -134,9 +147,9 @@ if (!class_exists('Clientes'))
 		public function getStatusfuma($fuma)
 		{
             if($fuma == true) {
-                $fuma = "</b><font color='#FF0000'>Sim</font></b>";
+                $fuma = "Sim";
             } else {
-                $fuma = "<b><font color='#008000'>Não</font></b>";
+                $fuma = "Não";
             }
             return $fuma;
         }
@@ -152,9 +165,9 @@ if (!class_exists('Clientes'))
 		public function getStatusvicio($vicio)
 		{
             if($vicio == true) {
-                $vicio = "</b><font color='#FF0000'>Sim</font></b>";
+                $vicio = "Sim";
             } else {
-                $vicio = "<b><font color='#008000'>Não</font></b>";
+                $vicio = "Não";
             }
             return $vicio;
         }
@@ -187,14 +200,15 @@ if (!class_exists('Clientes'))
         }
 		public function getStatuscivil($civil)
 		{
+            $civil = strtoupper($civil);
             if ($civil == 'C') {
-                $civil = "<b><font color='#008000'>Ativada</font></b>";
+                $civil = "Casado(a)";
             } else if ($civil == 'S') {
-                $civil = "<b><font color='#008000'>Ativada</font></b>";
+                $civil = "Solteiro(a)";
             } else if ($civil == 'D') {
-                $civil = "Divorciada";
+                $civil = "Divorciado(a)";
             } else if ($civil == 'V') {
-                $civil = "Viuva";
+                $civil = "Viuvo(a)";
             }
             return $civil;
         
@@ -211,9 +225,9 @@ if (!class_exists('Clientes'))
 		public function getStatusfilhos($filhos)
 		{
             if($filhos == 'S') {
-                $filhos = "<b><font color='#008000'>Possui</font></b>";
+                $filhos = "Sim";
             } else {
-                $filhos = "</b><font color='#FF0000'>Não possui</font></b>";
+                $filhos = "Não";
             }
             return $filhos;
         }
@@ -230,27 +244,28 @@ if (!class_exists('Clientes'))
 		
 		public function update()
         {
+            $date = date_create($this->getNascimento());
             if ($this->execute("UPDATE clientes			
                                 SET NMCLIENTE = '%s',
                                  DTNASCIMENTO = '%s',
-                                 NMRESPONSAVEL = '%s'
-								 GRAUPARENTESCO = '%s'
-								 CONVENIOS = '%s'
-								 IDBEBE = '%s'
-								 IDFUMA = '%s'
-								 NMVICIOS = '%s'
-								 ESCOLARIDADE = '%s'
-								 PROFISSAO = '%s'
-								 ESTADOCIVIL = '%s'
-								 IDFILHOS = '%s'
-								 QTDFILHOS = '%s'								
+                                 NMRESPONSAVEL = '%s',
+								 GRAUPARENTESCO = '%s',
+								 CONVENIOS = '%s',
+								 IDBEBE = '%s',
+								 IDFUMA = '%s',
+								 NMVICIOS = '%s',
+								 ESCOLARIDADE = '%s',
+								 PROFISSAO = '%s',
+								 ESTADOCIVIL = '%s',
+								 IDFILHOS = '%s',
+								 QTDFILHOS = '%s',
+                                 AVALIACAOMEDICA = '%s'
                                 WHERE CDCLIENTE = '%s'",
                  $this->getNome(),
-                 $this->getNascimento(),
+                 $date->format('Y-m-d'),
 				 $this->getResponsavel(),
 				 $this->getParentesco(),
-				 $this->getParentesco(),
-				 $this->getConvenio,
+				 $this->getConvenio(),
 				 $this->getBebe(),
 				 $this->getFuma(),
 				 $this->getVicio(),
@@ -258,22 +273,24 @@ if (!class_exists('Clientes'))
 				 $this->getProfissao(),
 				 $this->getCivil(),
 				 $this->getFilhos(),
-				 $this->getQTfilhos())
+				 $this->getQTfilhos(),
+                 $this->getAvaliacao(),
+                 $this->getId())
             ) {
-                $this->_Error->setError('Altera��o realizada com sucesso!');
+                $this->_Error->setError("Alteração realizada com sucesso!");
                 $this->_Error->ShowSucess();
             }
         }
 
         public function delete($id){
             if($this->execute("DELETE FROM clientes WHERE CDCLIENTE = '%s'", $id)) {
-               $this->_Error->setError('O cliente foi excluido com sucesso!');
+               $this->_Error->setError('O cadastro foi excluído com sucesso!');
                $this->_Error->ShowSucess();
             }
         }
 
         public function getAllClientes() {
-            $this->execute('SELECT CDCLIENTE, NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS FROM clientes ORDER BY CDCLIENTE, NMCLIENTE');
+            $this->execute('SELECT CDCLIENTE, NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS, AVALIACAOMEDICA FROM clientes ORDER BY NMCLIENTE');
             $array = array();
             while($row = $this->fetch()){
                 $array[] = $row;
@@ -282,19 +299,12 @@ if (!class_exists('Clientes'))
         }
 
         public function getIdodosById($id) {
-            $this->execute("SELECT NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS
+            $this->execute("SELECT NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS, AVALIACAOMEDICA
                               FROM clientes
                              WHERE CDCLIENTE = '%s'
                             ORDER BY CDCLIENTE, NMCLIENTE", $id);
             return $this->fetch();
         }
-		
-		
-		
-		
-				
-		
-		
 	}	
 }
 ?>

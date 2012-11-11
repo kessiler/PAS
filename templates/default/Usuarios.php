@@ -1,8 +1,8 @@
 <?
     $Error = new Error();
     if (isset($_SESSION[SESSION_NAME])):
-        $Produto = new Produto();
-        $arrValue = $Produto->getAllProduto();
+        $Usuario = new Usuario();
+        $arrValue = $Usuario->ListarUsuario();
 ?>
 <div id="main">
     <header>
@@ -48,50 +48,54 @@
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Produtos</h1>
-			<?
-				 if(empty($arrValue)) {
-                    $Error->setError('Não há produto cadastrado!');
-                    $Error->ShowError();
-                }
-            ?>
-            <div id="table">
+            <h1>Usuários</h1>
+
+            <div class="form_settings">
                 <table>
                     <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Login</th>
                         <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Tipo de Produto</th>
+                        <th>CPF</th>
+                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?
-                        if(!empty($arrValue)):
-                            foreach($arrValue as $value):
-                    ?>
-                    <tr>
-                        <th><?=$value['CDPRODUTO']?></th>
-                        <td><?=$value['NMPRODUTO']?></td>
-                        <td><?=$value['DSPRODUTO']?></td>
-						<td><?=$Produto->getStatusColor($value['TIPOPROD'])?></td>
-                        <th class="update" id="AlterDieta"><a href="?page=ProdutosAlter&id=<?=$value['CDPRODUTO']?>" style="text-decoration: none; color: #FFFFFF;">Alterar</a></th>
-                        <th class="delete" id="ExclDieta"><a href="?page=ProdutosExcl&id=<?=$value['CDPRODUTO']?>" style="text-decoration: none; color: #FFFFFF;">Excluir</a></th>
-                    </tr>
-                    <?
+                        <?
+                        if (!empty($arrValue)):
+                            foreach ($arrValue as $value):
+                                ?>
+                            <tr>
+                                <th><?=$value['CDUSUARIO']?></th>
+                                <td><?=$value['NMLOGIN']?></td>
+                                <td><?=$value['CDNOME']?></td>
+                                <td><?=$Usuario->mask($value['CDCPF'], true)?></td>
+                                <td><?=$Usuario->getStatusColor($value['IDATIVO'])?></td>
+                                <th class="update" id="AlterUsuarios"><a
+                                        href="?page=UsuariosAlter&id=<?=$value['CDUSUARIO']?>"
+                                        style="text-decoration: none; color: #FFFFFF;">Alterar</a></th>
+                                <th class="delete" id="ExclUsuarios"><a
+                                        href="?page=UsuariosExcl&id=<?=$value['CDUSUARIO']?>"
+                                        style="text-decoration: none; color: #FFFFFF;">Excluir</a></th>
+                            </tr>
+                                <?
+
                             endforeach;
                         endif;
-                    ?>
+                        ?>
                     <tr>
-                        <th class="insert" id="InsProduto"><a href="?page=ProdutosCad" style="text-decoration: none; color: #FFFFFF;">Incluir</a></th>
+                        <th class="insert" id="InsUsuarios"><a href="?page=UsuariosCad"
+                                                            style="text-decoration: none; color: #FFFFFF;">Incluir</a>
+                        </th>
                     </tr>
                     </tbody>
                 </table>
-			</div>
+            </div>
         </div>
     </div>
 <? else:
-    $Error->setError('É preciso estar logado para acessar a página!');
-    $Error->ShowDie();
-endif;
+        $Error->setError('É preciso estar logado para acessar a página!');
+        $Error->ShowDie();
+    endif;
 ?>

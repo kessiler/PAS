@@ -17,20 +17,45 @@ $(document).ready(function () {
     $("#produto .submit").click(function () {
         $("#produto").validationEngine();
     })
+    $("#EntradaAtivos .submit").click(function () {
+        $("#EntradaAtivos").validationEngine();
+    })
+    $("#SaidaAtivos .submit").click(function () {
+        $("#SaidaAtivos").validationEngine();
+    })
     $("#cadastro_vovo .submit").click(function () {
         $("#cadastro_vovo").validationEngine();
     })
+    $("#logativos .submit").click(function () {
+        $("#logativos").validationEngine();
+    })
     slideShow(4000);
 });
+
+function datePicker(div) {
+    $(div).datepicker({
+        showOn: "button",
+        buttonImage: "./templates/default/images/date_picker.jpg",
+        buttonImageOnly: true,
+        dateFormat: 'dd/mm/yy',
+        nextText: 'Próximo',
+        prevText: 'Anterior',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    });
+}
 
 function openPopUp() {
     $.fx.speeds._default = 500;
     $( "#dialog-form" ).dialog({
         autoOpen: false,
         show: "blind",
-        hide: "explode",
-        height: 500,
-        width: 350,
+        hide: "fade",
+        height: 726,
+        width: 550,
         modal: true,
         buttons: {
             Fechar: function() {
@@ -64,4 +89,35 @@ function gallery() {
         next.css({opacity:0.0}).addClass('show').animate({opacity:1.0}, 1000);
         current.animate({opacity:0.0}, 1000).removeClass('show');
     }
+}
+
+function mask(campo, evt, mask) {
+
+    if(document.all) {
+        key = evt.keyCode; }
+    else{
+        key = evt.which;
+    }
+    if (key == 8) {
+        return true;
+    }
+    string = campo.value;
+    i = string.length;
+
+    if (i < mask.length) {
+        if (mask.charAt(i) == '?') {
+            return (key > 47 && key < 58);
+        } else {
+            if (mask.charAt(i) == '!') {  return true;  }
+            for (c = i; c < mask.length; c++) {
+                if (mask.charAt(c) != '?' && mask.charAt(c) != '!')
+                    campo.value = campo.value + mask.charAt(c);
+                else if (mask.charAt(c) == '!'){
+                    return true;
+                } else {
+                    return (key > 47 && key < 58);
+                }
+            }
+        }
+    } else return false;
 }

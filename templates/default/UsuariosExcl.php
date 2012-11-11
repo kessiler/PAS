@@ -1,14 +1,14 @@
 <?
 $Error = new Error();
 if (isset($_SESSION[SESSION_NAME])):
-    $Dieta = new Dieta();
-    $row = $Dieta->getDietaById($_GET['id']);
-?>
+    $Usuario = new Usuario();
+    ?>
 <div id="main">
     <header>
         <div id="logo">
             <div id="logo_text">
                 <h1><a href="?">Lar da<span class="logo_colour"> Vovó</span></a></h1>
+
                 <h2>Asilo Nossa Senhora da Piedade.</h2>
             </div>
         </div>
@@ -47,35 +47,26 @@ if (isset($_SESSION[SESSION_NAME])):
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Alteração de Dietas</h1>
+            <h1>Confirma exclusão do Usuário?</h1>
             <?
-            if (isset($_POST['alterardieta'])) :
-                $Dieta->setNome($_POST['nome'])
-                    ->setDescricao($_POST['descricao'])
-                    ->setStatus($_POST['sele'])
-                    ->setId($_POST['Id'])
-                    ->update();
-                unset($_POST['alterardieta']);
-                $row = $Dieta->getDietaById($_GET['id']);
-            ?>
-            <div class="back"><a href="?page=Dietas">Voltar</a></div>
-            <?endif;?>
-            <div class="form_settings" id="frmDieta">
-                <form id="dieta" method="post" action="">
-                    <p><span>Nome</span><input class="validate[required] text-input" type="text" name="nome" value="<?=$row['NMDIETA'];?>"/></p>
-                    <p><span>Descrição</span><textarea class="validate[required] text-input" rows="5" cols="50" name="descricao"><?=$row['DSDIETA'];?></textarea></p>
-                    <p><span>Status</span>
-                        <select id="sele" name="sele">
-                            <option <?($row['IDATIVO'] == 'S') ? print 'selected="selected"' : "";?> value="S">Ativada</option>
-                            <option <?($row['IDATIVO'] == 'N') ? print 'selected="selected"' : "";?> value="N">Desativada</option>
-                        </select>
-                    </p>
-                    <hr>
-                    <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
-                    <input class="submit" type="submit" name="alterardieta" style="margin: 10px 0 0 0;" value="Alterar"/>
-                    <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 10px;"/>
-                </form>
-            </div>
+            if (isset($_POST['sim'])) :
+                $Usuario->delete($_POST['Id']);
+                unset($_POST);
+                ?>
+                <div class="back"><a onclick="history.go(-2);">Voltar</a></div>
+                <? elseif (isset($_POST['nao'])):
+                    echo "<script>history.go(-2);</script>";
+             else:
+                ?>
+                <div class="form_settings" id="frmDieta">
+                    <form id="dieta" method="post" action="">
+                        <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
+                        <input class="submit" type="submit" name="sim" style="margin: 0 0 0 0px;"
+                               value="Sim"/>
+                        <input class="submit" type="submit" name="nao" value="Não" style="margin: 0 0 0 40px;"/>
+                    </form>
+                </div>
+                <? endif;?>
         </div>
     </div>
 <? else:

@@ -17,7 +17,7 @@ if (isset($_SESSION[SESSION_NAME])):
                 <li><a href="?page=Home">Início</a></li>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
-                        <li><a href="?page=User">Usuários</a></li>
+                        <li><a href="?page=Usuarios">Usuários</a></li>
                         <li><a href="?page=Idosos">Idosos</a></li>
                         <li><a href="?page=Produtos">Produtos</a></li>
                         <li><a href="?page=Dietas">Dietas</a></li>
@@ -33,6 +33,12 @@ if (isset($_SESSION[SESSION_NAME])):
                     <ul>
                         <li><a href="?page=RelacaoDietas">Relação de Dietas</a></li>
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a></li>
+                        <li><a href="javascript: void(Group4);">Relatórios de Estoque</a>
+                            <ul>
+                                <li><a href="?page=PosicaoEstoque">Posição de estoque</a></li>
+                                <li><a href="?page=LogAtivos">Saída/Entrada Ativos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="?page=Logout">Sair do Sistema</a></li>
@@ -43,68 +49,83 @@ if (isset($_SESSION[SESSION_NAME])):
         <div id="content">
             <h1>Alteração do Cadastro de Idosos</h1>
             <?
-            if (isset($_POST['alteridoso'])) :
-					$Clientes->setNome($_POST['nome'])
-						 ->setNascimento($_POST['nascimento'])
-						 ->setResponsavel($_POST['responsavel'])
-						 ->setParentesco($_POST['parentesco'])
-						 ->setConvenio($_POST['medico'])
-						 ->setBebe($_POST['alcool'])
-						 ->setFuma($_POST['fuma'])
-						 ->setVicio($_POST['vicio'])
-						 ->setEscolaridade($_POST['escolaridade'])
-						 ->setProfissao($_POST['prifissao'])
-						 ->setCivil($_POST['civil'])
-						 ->setFilhos($_POST['filho'])
-						 ->setQTfilhos($_POST['quantindade_fi'])
+            if (isset($_POST['alterarcliente'])) :
+                $Clientes->setNome($_POST['nome'])
+                    ->setNascimento($_POST['nascimento'])
+                    ->setResponsavel($_POST['responsavel'])
+                    ->setParentesco($_POST['parentesco'])
+                    ->setConvenio($_POST['convenio'])
+                    ->setBebe($_POST['bebida'])
+                    ->setFuma($_POST['fuma'])
+                    ->setVicio($_POST['vicios'])
+                    ->setEscolaridade($_POST['escolaridade'])
+                    ->setProfissao($_POST['profissao'])
+                    ->setCivil($_POST['civil'])
+                    ->setFilhos($_POST['filho'])
+                    ->setQTfilhos($_POST['quantindade_fi'])
+                    ->setAvaliacao($_POST['avaliacao'])
+                    ->setId($_POST['Id'])
                     ->update();
-                unset($_POST['alteridoso']);
+                unset($_POST['alterarcliente']);
                 $row = $Clientes->getIdodosById($_GET['id']);
             ?>
             <div class="back"><a href="?page=Idosos">Voltar</a></div>
             <?endif;?>
-            <div class="form_settings";>   
-				<form id="cadastro_vovo" method="post" action="" >
-					<p><span>Nome Completo:</span> <input class="validate[required] text-input" style="width: 350px;"type="text" name="nome" value="<?=$row['NMCLIENTE'];?>"/></p>
-					</br>
-					<p><span>Data de nascimento:</span> <input class="validate[required] text-input" style="width: 75px; type="text" name="nascimento" value="<?=$row['DTNASCIMENTO'];?>"/></p>
-					</br>
-					<p><span>Nome do responsavel:</span> <input class="validate[required] text-input"style="width: 350px;" type="text" name="responsavel" value="<?=$row['NMRESPONSAVEL'];?>"/></p>
-					</br>
-					<p><span>Grau de parentesco:</span> <input class="validate[required] text-input" style="width: 150px;"type="text" name="parentesco" value="<?=$row['GRAUPARENTESCO'];?>"/></p>
-					</br>
-					<p><span>Convenio medico:</span> <input class="validate[required] text-input" style="width: 200px;"type="text" name="convenio" value="<?=$row['CONVENIOS'];?>"/></p>
-					</br>
-					<p><input style="width:1px;" type=checkbox name=alcool><span>Ingere bebidas alcoólicas</span></p>
-					</br>
-					<p><input style="width:1px;" type=checkbox name=fuma><span>Fuma</span></p>
-					</br>
-					<p><input style="width:1px;" type=checkbox name=vicio><span>Possui algum vicio </span></p>
-					</br>
-					<p><span>Grau de instrução:</span> <input class="validate[required] text-input" style="width: 150px;"type="text" name="escolaridade" value="<?=$row['ESCOLARIDADE'];?>"/></p>
-					</br>
-					<p><span>Profissão:</span> <input class="validate[required] text-input" style="width: 200px;"type="text" name="prifiss�o" value="<?=$row['PROFISSAO'];?>"/></p>
-					</br>			
-					<p><span>Possui filhos:</span></p>
-					</br>					
-					<p><span>Sim</span><input style="width:1px;"TYPE=RADIO NAME="filho" CHECKED></p>
-					<p><span>Não</span><input style="width:1px;"TYPE=RADIO NAME="filho" CHECKED></p>
-					</br>				
-					<p><span>Quantos:</span> <input type="text" name="quantindade_fi" value="<?=$row['QTDFILHOS'];?> "></p>
-					</br>
-					<p>
-					<span>Estado Civil:</span>
-					<SELECT style="width: 75px;" name="civil" value="<?=$row['ESTADOCIVIL'];?>">	
-						<option></option>
-						<option value="Solteira"><span>Solteira</span></option>
-						<option value="Casada"><span>Casada</span></option>
-						<option value="Viuva"><span>Viuva</span></option>
-					</SELECT>
-					</p>					
-						<BR></BR>
+            <div class="form_settings" id="cadastro">
+                <form id="cadastro_vovo" method="post" action="">
+                    <p><span style="width: 120px">Nome Completo:</span><input class="validate[required] text-input"
+                                                                              style="width: 350px;"
+                                                                              type="text" name="nome" value="<?=$row['NMCLIENTE'];?>"/></p>
+
+                    <p><span style="width: 120px">Data de Nascimento:</span><input class="validate[required] text-input"
+                                                                                   style="width: 100px;" id="dtnascimento" type="text" name="nascimento"
+                                                                                   value="<?=date('d/m/Y', strtotime($row['DTNASCIMENTO']));?>" onfocus="datePicker('#dtnascimento');" onkeypress="mask(this, event,  '??/??/????');"/></p>
+
+                    <p><span style="width: 120px">Nome do Responsável:</span><input
+                            style="width: 350px;" type="text" name="responsavel"
+                            value="<?=$row['NMRESPONSAVEL']?>"/></p>
+
+                    <p><span style="width: 120px">Grau de Parentesco: </span><input
+                            style="width: 150px;" type="text" name="parentesco"
+                            value="<?=$row['GRAUPARENTESCO']?>"/></p>
+
+                    <p><span style="width: 120px">Convênio médico:</span> <input
+                            style="width: 200px;"
+                            type="text" name="convenio" value="<?=$row['CONVENIOS']?>"/></p>
+
+                    <p><span style="width: 150px">Ingere bebidas alcoólicas?</span><input class="checkbox" type="radio" <?($row['IDBEBE'] == 'S') ? print 'checked="checked"' : "";?> name="bebida" value="S">Sim
+                        <input class="checkbox" style="margin: 0 0 0 30px" type="radio" <?($row['IDBEBE'] == 'N') ? print 'checked="checked"' : "";?> name="bebida" value="N">Não
+                    <p><span style="width: 150px">Fuma?</span><input class="checkbox" type="radio" <?($row['IDFUMA'] == 'S') ? print 'checked="checked"' : "";?> name="fuma" value="S">Sim
+                        <input class="checkbox" style="margin: 0 0 0 30px" type="radio" <?($row['IDFUMA'] == 'N') ? print 'checked="checked"' : "";?> name="fuma" value="N">Não</p>
+                    <p><span style="width: 120px">Vícios:</span><textarea rows="5" cols="50"
+                                                                          name="vicios"><?=$row['NMVICIOS']?></textarea></p>
+
+                    <p><span style="width: 120px">Grau de instrução:</span> <input
+                            style="width: 150px;" type="text" name="escolaridade"
+                            value="<?$row['GRAUPARENTESCO']?>"/></p>
+
+                    <p><span style="width: 120px">Profissão:</span> <input  style="width: 200px;"
+                                                                            type="text" name="profissao" value="<?=$row['PROFISSAO']?>"/></p>
+
+                    <p><span style="width: 120px">Possui filhos:</span></p><input class="checkbox" type="radio" <?($row['IDFILHOS'] == 'S') ? print 'checked="checked"' : "";?> name="filho" value="S" onclick="$('.qtdfilhos').css('display', '');"">Sim
+                    <input class="checkbox" style="margin: 0 0 0 30px" type="radio" <?($row['IDFILHOS'] == 'N') ? print 'checked="checked"' : "";?> name="filho" value="N" onclick="$('.qtdfilhos').css('display', 'none');">Não
+                    <p class="qtdfilhos" <?($row['IDFILHOS'] == 'N') ? print 'style="display: none"' : "";?> ><span style="width: 120px">Quantos:</span><input type="text" style="width: 50px" name="quantindade_fi" value="<?=$row['QTDFILHOS'];?>"></p>
+
+                    <p>
+                        <span style="width: 120px">Estado Civil:</span>
+                        <select style="width: 110px;" name="civil">
+                            <option <?($row['ESTADOCIVIL'] == 'S') ? print 'selected="selected"' : "";?> value="S"><span>Solteiro(a)</span></option>
+                            <option <?($row['ESTADOCIVIL'] == 'C') ? print 'selected="selected"' : "";?> value="C"><span>Casado(a)</span></option>
+                            <option <?($row['ESTADOCIVIL'] == 'V') ? print 'selected="selected"' : "";?> value="V"><span>Viuvo(a)</span></option>
+                            <option <?($row['ESTADOCIVIL'] == 'D') ? print 'selected="selected"' : "";?> value="D"><span>Divorciado(a)</span></option>
+                        </select>
+                    </p>
+                    <p><span style="width: 120px">Avaliação Médica:</span><textarea rows="5" cols="50"
+                                                                                    name="avaliacao"><?$row['AVALIACAOMEDICA']?></textarea></p>
+                    <hr>
 					<input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
-					<input class="submit" type="submit" name="alterardieta" style="margin: 0 0 0 100px;" value="Alterar"/>
-                    <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 100px;"/>
+					<input class="submit" type="submit" name="alterarcliente" style="margin: 10px 0 0 0;"  value="Alterar"/>
+                    <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 10px;"/>
 						
                 </form>
             </div>

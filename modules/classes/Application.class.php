@@ -27,13 +27,21 @@ if (!class_exists('Application')) {
                     break;
                 case 'Login':
                     return $this->view($pg);
-                case 'User':
+                case 'Usuarios':
                     return $this->view($pg);
+                case 'UsuariosCad':
+                    return $this->view($pg);
+		        case 'UsuariosAlter':
+		            return $this->view($pg);
+		        case 'UsuariosExcl':
+		            return $this->view($pg);
                 case 'Idosos':
                     return $this->view($pg);
                 case 'IdososAlter':
                     return $this->view($pg);
                 case 'IdososCad':
+                    return $this->view($pg);
+                case 'IdososExcl':
                     return $this->view($pg);
                 case 'Produtos':
                     return $this->view($pg);
@@ -58,6 +66,10 @@ if (!class_exists('Application')) {
                 case 'RelacaoDietas':
                     return $this->view($pg);
                 case 'RelacaoMedicamentos':
+                    return $this->view($pg);
+                case 'PosicaoEstoque':
+                    return $this->view($pg);
+                case 'LogAtivos':
                     return $this->view($pg);
                 case 'Logout':
                     session_destroy();
@@ -85,8 +97,10 @@ if (!class_exists('Application')) {
             include('templates/' . TEMPLATE . 'header.php');
             $this->_header = ob_get_contents();
             include('templates/' . TEMPLATE . $page);
-            include('templates/' . TEMPLATE . 'footer.php');
-            $this->_footer = ob_get_contents();
+            if($page != '404.html') {
+                include('templates/' . TEMPLATE . 'footer.php');
+                $this->_footer = ob_get_contents();
+            }
             ob_end_flush();
         }
     }

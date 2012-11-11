@@ -15,6 +15,18 @@ if (!class_exists('Produto')) {
         protected $_descricao;
         protected $_tipoprod;
         protected $_id;
+        protected $_qtd;
+
+        public function setQtd($qtd)
+        {
+            $this->_qtd = $qtd;
+            return $this;
+        }
+
+        public function getQtd()
+        {
+            return $this->_qtd;
+        }
 
         public function setId($id)
         {
@@ -69,6 +81,48 @@ if (!class_exists('Produto')) {
             }
         }
 
+        public function updateEntradaFromQtd() {
+            if ($this->execute("UPDATE PRODUTOS
+                                SET QTDPROD = QTDPROD + %f
+                                WHERE  CDPRODUTO = '%s'",
+                $this->getQtd(),
+                $this->getId())
+            ) {
+                $this->execute("INSERT INTO LOGOPERACAO(DTOPERACAO, IDOPERACAO, CDUSUARIO, QTDPROD, CDPRODUTO)
+                                                  VALUES (now(), 'E', '%s', %f, '%s')",
+                    $_SESSION[SESSION_NAME]['IDUSER'], $this->getQtd(), $this->getId());
+                $rowProduct = $this->getProdutoById($this->getId());
+                $formatNumber = number_format($rowProduct['QTDPROD'], 2, ',', '');
+                $this->_Error->setError("Entrada realizada com sucesso!<br /> A nova quantidade em estoque do produto {$rowProduct['NMPRODUTO']} é {$formatNumber}.");
+                $this->_Error->ShowSucess();
+            }
+        }
+
+        public function updateSaidaFromQtd() {
+            $rowProduct = $this->getProdutoById($this->getId());
+            $formatNumber = number_format($rowProduct['QTDPROD'], 2, ',', '');
+            if(((float)$rowProduct['QTDPROD'] - (float)$this->getQtd()) < 0.0) {
+                $qtd = number_format($this->getQtd(), 2, ',', '');
+                $this->_Error->setError("Operação bloqueada!<br /> A quantidade {$qtd} a ser retirada deixará o estoque negativo.<br /> A quantidade disponível do produto {$rowProduct['NMPRODUTO']} é {$formatNumber}. ");
+                $this->_Error->ShowError();
+            } else {
+                if ($this->execute("UPDATE PRODUTOS
+                                  SET QTDPROD = QTDPROD - %f
+                                WHERE  CDPRODUTO = '%s'",
+                    $this->getQtd(),
+                    $this->getId())
+                ) {
+                    $rowProduct['QTDPROD'] -= $this->getQtd();
+                    $formatNumber = number_format($rowProduct['QTDPROD'], 2, ',', '');
+                    $this->execute("INSERT INTO LOGOPERACAO(DTOPERACAO, IDOPERACAO, CDUSUARIO, QTDPROD, CDPRODUTO)
+                                                  VALUES (now(), 'S', '%s', %f, '%s')",
+                        $_SESSION[SESSION_NAME]['IDUSER'], $this->getQtd(), $this->getId());
+                    $this->_Error->setError("Saída realizada com sucesso!<br /> A quantidade restante em estoque do produto {$rowProduct['NMPRODUTO']} é {$formatNumber}. ");
+                    $this->_Error->ShowError();
+                }
+            }
+        }
+
         public function getAllProduto() {
             $this->execute('SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD FROM PRODUTOS ORDER BY CDPRODUTO, NMPRODUTO');
             $array = array();
@@ -78,8 +132,17 @@ if (!class_exists('Produto')) {
             return $array;
         }
 
+        public function getAllMedicamento() {
+            $this->execute("SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD FROM PRODUTOS WHERE TIPOPROD = 'M' ORDER BY CDPRODUTO, NMPRODUTO");
+            $array = array();
+            while($row = $this->fetch()){
+                $array[] = $row;
+            }
+            return $array;
+        }
+
         public function getProdutoById($id) {
-            $this->execute("SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD
+            $this->execute("SELECT CDPRODUTO, NMPRODUTO, DSPRODUTO, TIPOPROD, QTDPROD
                               FROM PRODUTOS
                              WHERE CDPRODUTO = '%s'
                             ORDER BY CDPRODUTO, NMPRODUTO", $id);

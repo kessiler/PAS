@@ -1,7 +1,11 @@
-<?
+<? 
+//if (isset($_SESSION[SESSION_NAME])): 
+
+//require("../../modules/classes/Usuario.class.php");
 $Error = new Error();
 if (isset($_SESSION[SESSION_NAME])):
-    $Dieta = new Dieta();
+    $Usuario = new Usuario();
+	
     ?>
 <div id="main">
     <header>
@@ -47,24 +51,41 @@ if (isset($_SESSION[SESSION_NAME])):
     </header>
     <div id="site_content">
         <div id="content">
-            <h1>Confirma exclusão da dieta?</h1>
+            <h1>Cadastrar Usuário</h1>
             <?
-            if (isset($_POST['sim'])) :
-                $Dieta->delete($_POST['Id']);
-                unset($_POST);
+            if (isset($_POST['cadastrarUsuario'])) :
+                $Usuario->setNome($_POST['nome']);
+				$Usuario->setLogin($_POST['login']);
+				$Usuario->setSenha($_POST['senha']);
+				$Usuario->setCpf($Usuario->mask($_POST['cpf'], false));
+				$Usuario->setAtivo($_POST['tipo']);
+				$Usuario->Cadastrar();
+				
+                unset($_POST['cadastrarUsuario']);
+				
                 ?>
-                <div class="back"><a onclick="history.go(-2);">Voltar</a></div>
-                <? elseif (isset($_POST['nao'])):
-                    echo "<script>history.go(-2);</script>";
-             else:
+                    <div class="back"><a onclick="history.go(-2);">Voltar</a></div>
+                <?
+            else:
                 ?>
                 <div class="form_settings" id="frmDieta">
                     <form id="dieta" method="post" action="">
-                        <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
-                        <input class="submit" type="submit" name="sim" style="margin: 0 0 0 0px;"
-                               value="Sim"/>
-                        <input class="submit" type="submit" name="nao" value="Não" style="margin: 0 0 0 40px;"/>
-                    </form>
+                    <p><span>Nome </span><input class="validate[required] text-input" type="text" name="nome" value=""/></p>
+                    <p><span>Login </span><input class="validate[required] text-input" type="text" style="width:200px;" name="login" value=""/></p>
+                    <p><span>Senha</span><input class="validate[required] text-input " type="password" style="width:150px;" name="senha" value=""/></p>
+                    <p><span>CPF </span><input class="validate[required] text-input" type="text" style="width:150px;" name="cpf" maxlength="14" value="" onkeypress="mask(this, event, '???.???.???-??')" /></p>
+
+                    <p>
+                           <span>Status </span>
+                           <input type="radio" checked="checked" class="checkbox" name="tipo" value="S" />Ativo
+                           <input type="radio" class="checkbox" name="tipo" value="N" style="margin: 0 0 0 50px"/>Inativo
+                    </p>
+                    
+                   <hr>
+                            <input class="submit" type="submit" style ="margin: 10px 0 0 0" name="cadastrarUsuario" value="Cadastrar"/>
+                            <input class="submit" type="reset" style ="margin-left: 10px;" name="limpar" value="Limpar"/>
+                            <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 10px;"/>
+                </form>
                 </div>
                 <? endif;?>
         </div>

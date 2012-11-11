@@ -1057,6 +1057,7 @@ function _dochecks()
 
 function _checkoutput()
 {
+    ob_clean();
 	if(PHP_SAPI!='cli')
 	{
 		if(headers_sent($file,$line))

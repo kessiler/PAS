@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tempo de Geração: Out 07, 2012 as 11:04 PM
--- Versão do Servidor: 5.0.51
--- Versão do PHP: 5.2.6
+-- Tempo de Geraï¿½ï¿½o: Out 07, 2012 as 11:04 PM
+-- Versï¿½o do Servidor: 5.0.51
+-- Versï¿½o do PHP: 5.2.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -22,7 +22,7 @@ USE `webpas`;
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
-  `CDUSUARIO` int(11) NOT NULL auto_increment COMMENT 'Código',
+  `CDUSUARIO` int(11) NOT NULL auto_increment COMMENT 'Cï¿½digo',
   `NMLOGIN` varchar(50) collate utf8_bin NOT NULL COMMENT 'Login',
   `CDSENHA` varchar(40) collate utf8_bin NOT NULL COMMENT 'Senha',
   `CDNOME` varchar(50) collate utf8_bin NOT NULL COMMENT 'Nome',
@@ -33,11 +33,11 @@ CREATE TABLE `usuarios` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 -- 
--- Inserindo 'usuário' padrão
+-- Inserindo 'usuï¿½rio' padrï¿½o
 -- 
 
 INSERT INTO `usuarios` VALUES (1, 0x61646d696e, 0x3230326362393632616335393037356239363462303731353264323334623730, 0x41646d696e6973747261646f72, 0x313131313131313131313131, 0x53);
--- --------------------------------------------------------
+--  -- --------------------------------------------------------
 
 -- 
 -- Estrutura da tabela `clientes`
@@ -72,9 +72,9 @@ CREATE TABLE `clientes` (
 
 DROP TABLE IF EXISTS `dieta`;
 CREATE TABLE `dieta` (
-  `CDDIETA` int(11) NOT NULL auto_increment COMMENT 'Código da dieta',
+  `CDDIETA` int(11) NOT NULL auto_increment COMMENT 'Cï¿½digo da dieta',
   `NMDIETA` varchar(50) collate utf8_bin NOT NULL COMMENT 'Nome da dieta',
-  `DSDIETA` varchar(200) collate utf8_bin default NULL COMMENT 'Descrição da dieta',
+  `DSDIETA` varchar(200) collate utf8_bin default NULL COMMENT 'Descriï¿½ï¿½o da dieta',
   `IDATIVO` varchar(1) collate utf8_bin NOT NULL default 'S' COMMENT 'S ou N',
   PRIMARY KEY  (`CDDIETA`),
   KEY `NMDIETA` (`NMDIETA`)
@@ -91,12 +91,14 @@ CREATE TABLE `logoperacao` (
   `NRSEQOPERACAO` int(11) NOT NULL auto_increment,
   `DTOPERACAO` date NOT NULL,
   `IDOPERACAO` varchar(1) collate utf8_bin NOT NULL COMMENT 'S OU N',
-  `CDCLIENTE` int(11) NOT NULL,
-  `QTDPROD` int(11) NOT NULL,
+  `CDUSUARIO` int(11) NOT NULL,
+  `CDPRODUTO` int(11) NOT NULL,
+  `QTDPROD` float NOT NULL,
   PRIMARY KEY  (`NRSEQOPERACAO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
-ALTER TABLE `logoperacao` ADD CONSTRAINT FK_CLIENTE FOREIGN KEY (`CDCLIENTE`) REFERENCES `clientes` (`CDCLIENTE`);
+ALTER TABLE `logoperacao` ADD CONSTRAINT FK_USUARIO FOREIGN KEY (`CDUSUARIO`) REFERENCES `usuarios` (`CDUSUARIO`);
+ALTER TABLE `logoperacao` ADD CONSTRAINT FK_PRODUTOS_LOG FOREIGN KEY (`CDPRODUTO`) REFERENCES `produtos` (`CDPRODUTO`);
 
 -- --------------------------------------------------------
 
@@ -106,10 +108,10 @@ ALTER TABLE `logoperacao` ADD CONSTRAINT FK_CLIENTE FOREIGN KEY (`CDCLIENTE`) RE
 
 DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE `produtos` (
-  `CDPRODUTO` int(11) NOT NULL auto_increment COMMENT 'Código',
+  `CDPRODUTO` int(11) NOT NULL auto_increment COMMENT 'Cï¿½digo',
   `NMPRODUTO` varchar(50) collate utf8_bin NOT NULL COMMENT 'Nome',
-  `DSPRODUTO` varchar(200) collate utf8_bin default NULL COMMENT 'Descrição',
-  `QTDPROD` int(11) NOT NULL default '0' COMMENT 'Quantidade',
+  `DSPRODUTO` varchar(200) collate utf8_bin default NULL COMMENT 'Descriï¿½ï¿½o',
+  `QTDPROD` float NOT NULL default '0' COMMENT 'Quantidade',
   `TIPOPROD` varchar(1) collate utf8_bin NOT NULL COMMENT 'Tipo / ''M'', ''O'', ''A''',
   PRIMARY KEY  (`CDPRODUTO`),
   KEY `NMPRODUTO` (`NMPRODUTO`)

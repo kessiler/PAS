@@ -17,7 +17,7 @@ if (isset($_SESSION[SESSION_NAME])):
                 <li><a href="?page=Home">Início</a>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
-                        <li><a href="?page=User">Usuários</a></li>
+                        <li><a href="?page=Usuarios">Usuários</a></li>
                         <li><a href="?page=Idosos">Idosos</a></li>
                         <li><a href="?page=Produtos">Produtos</a></li>
                         <li><a href="?page=Dietas">Dietas</a></li>
@@ -33,6 +33,12 @@ if (isset($_SESSION[SESSION_NAME])):
                     <ul>
                         <li><a href="?page=RelacaoDietas">Relação de Dietas</a></li>
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a>
+                        <li><a href="javascript: void(Group4);">Relatórios de Estoque</a>
+                            <ul>
+                                <li><a href="?page=PosicaoEstoque">Posição de estoque</a></li>
+                                <li><a href="?page=LogAtivos">Saída/Entrada Ativos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="?page=Logout">Sair do Sistema</a>
@@ -65,9 +71,10 @@ if (isset($_SESSION[SESSION_NAME])):
 								<option <?($row['TIPOPROD'] == 'O') ? print 'selected="selected"' : "";?> value="O">Outros</option>
                             </select>
                         </p>
+                    <hr>
                     <input name="Id" type="hidden" value="<?php echo $_GET['id'];?>"/>
-                    <input class="submit" type="submit" name="alterarproduto" style="margin: 10px 0 0 100px;" value="Alterar"/>
-                    <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 100px;"/>
+                    <input class="submit" type="submit" name="alterarproduto" style="margin: 10px 0 0 0;" value="Alterar"/>
+                    <input class="submit" type="button" onclick="history.go(-1);" value="Cancelar" style="margin: 0 0 0 10px;"/>
                 </form>
             </div>
         </div>

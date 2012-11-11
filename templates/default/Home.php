@@ -14,7 +14,7 @@ if (isset($_SESSION[SESSION_NAME])): ?>
                 <li><a href="?page=Home">Início</a>
                 <li><a href="javascript: void(Group4);">Cadastros</a>
                     <ul>
-                        <li><a href="?page=User">Usuários</a></li>
+                        <li><a href="?page=Usuarios">Usuários</a></li>
                         <li><a href="?page=Idosos">Idosos</a></li>
                         <li><a href="?page=Produtos">Produtos</a></li>
                         <li><a href="?page=Dietas">Dietas</a></li>
@@ -30,6 +30,12 @@ if (isset($_SESSION[SESSION_NAME])): ?>
                     <ul>
                         <li><a href="?page=RelacaoDietas">Relação de Dietas</a></li>
                         <li><a href="?page=RelacaoMedicamentos">Relação de Medicamentos</a>
+                        <li><a href="javascript: void(Group4);">Relatórios de Estoque</a>
+                            <ul>
+                                <li><a href="?page=PosicaoEstoque">Posição de estoque</a></li>
+                                <li><a href="?page=LogAtivos">Saída/Entrada Ativos</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="?page=Logout">Sair do Sistema</a>
