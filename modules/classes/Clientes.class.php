@@ -48,11 +48,11 @@ if (!class_exists('Clientes'))
         }
 		public function insert()
         {
-            $date = date_create($this->getNascimento());
+            $date = date('Y-m-d', strtotime($this->getNascimento()));
             if ($this->execute("INSERT INTO clientes(NMCLIENTE, DTNASCIMENTO, NMRESPONSAVEL,GRAUPARENTESCO,CONVENIOS,IDBEBE,IDFUMA,NMVICIOS,ESCOLARIDADE,PROFISSAO,ESTADOCIVIL,IDFILHOS,QTDFILHOS, AVALIACAOMEDICA)
                                     VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                  $this->getNome(),
-                 $date->format('Y-m-d'),
+                 $date,
 				 $this->getResponsavel(),
 				 $this->getParentesco(),
 				 $this->getConvenio(),
@@ -244,7 +244,7 @@ if (!class_exists('Clientes'))
 		
 		public function update()
         {
-            $date = date_create($this->getNascimento());
+            $date = date('Y-m-d', strtotime($this->getNascimento()));
             if ($this->execute("UPDATE clientes			
                                 SET NMCLIENTE = '%s',
                                  DTNASCIMENTO = '%s',
@@ -262,7 +262,7 @@ if (!class_exists('Clientes'))
                                  AVALIACAOMEDICA = '%s'
                                 WHERE CDCLIENTE = '%s'",
                  $this->getNome(),
-                 $date->format('Y-m-d'),
+                 $date,
 				 $this->getResponsavel(),
 				 $this->getParentesco(),
 				 $this->getConvenio(),

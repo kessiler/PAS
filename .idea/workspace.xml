@@ -23,7 +23,7 @@
       <file leaf-file-name="Dietas.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/default/Dietas.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="58" selection-start="3153" selection-end="3153" vertical-scroll-proportion="0.0">
+            <state line="76" column="58" selection-start="3153" selection-end="3153" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
@@ -33,17 +33,6 @@
         <entry file="file://$PROJECT_DIR$/modules/classes/Relatorios.class.php">
           <provider selected="true" editor-type-id="text-editor">
             <state line="80" column="9" selection-start="3505" selection-end="3505" vertical-scroll-proportion="-0.65384614">
-              <folding>
-                <element signature="e#6#163#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="structtables.sql" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/structtables.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="3" selection-start="0" selection-end="4371" vertical-scroll-proportion="0.71915394">
               <folding />
             </state>
           </provider>
@@ -103,10 +92,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Clientes.class.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Clientes.class.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/classes/Clientes.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="304" column="48" selection-start="8543" selection-end="8543" vertical-scroll-proportion="0.0">
+            <state line="245" column="9" selection-start="6186" selection-end="6186" vertical-scroll-proportion="0.29882812">
               <folding />
             </state>
           </provider>
@@ -131,13 +120,13 @@
         <option value="$PROJECT_DIR$/templates/default/Dietas.php" />
         <option value="$PROJECT_DIR$/templates/default/Produtos.php" />
         <option value="$PROJECT_DIR$/templates/default/LogAtivos.php" />
-        <option value="$PROJECT_DIR$/modules/classes/Clientes.class.php" />
         <option value="$PROJECT_DIR$/templates/default/PosicaoEstoque.php" />
         <option value="$PROJECT_DIR$/templates/default/RelacaoDietas.php" />
         <option value="$PROJECT_DIR$/modules/classes/Produto.class.php" />
         <option value="$PROJECT_DIR$/templates/default/RelacaoMedicamentos.php" />
         <option value="$PROJECT_DIR$/modules/classes/Relatorios.class.php" />
         <option value="$PROJECT_DIR$/structtables.sql" />
+        <option value="$PROJECT_DIR$/modules/classes/Clientes.class.php" />
       </list>
     </option>
   </component>
@@ -237,9 +226,9 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="preferences.externalResources" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -271,13 +260,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26414087" sideWeight="0.6707589" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27374598" sideWeight="0.6707589" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25080043" sideWeight="0.32700893" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -286,7 +276,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -347,11 +336,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/default/IdososAlter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="149" selection-start="5267" selection-end="5328" vertical-scroll-proportion="0.66480446" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/classes/Login.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="34" selection-start="975" selection-end="975" vertical-scroll-proportion="-17.653847" />
@@ -374,16 +358,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/default/Produtos.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="35" selection-start="2448" selection-end="2459" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/classes/Clientes.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="304" column="48" selection-start="8543" selection-end="8543" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="61" column="35" selection-start="2448" selection-end="2459" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/default/LogAtivos.php">
@@ -402,7 +377,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/default/Dietas.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="58" selection-start="3153" selection-end="3153" vertical-scroll-proportion="0.0">
+        <state line="76" column="58" selection-start="3153" selection-end="3153" vertical-scroll-proportion="-0.65384614">
           <folding />
         </state>
       </provider>
@@ -435,18 +410,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/classes/Relatorios.class.php">
+    <entry file="file://$PROJECT_DIR$/structtables.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="9" selection-start="3505" selection-end="3505" vertical-scroll-proportion="-0.65384614">
-          <folding>
-            <element signature="e#6#163#0" expanded="true" />
-          </folding>
+        <state line="54" column="59" selection-start="1819" selection-end="1819" vertical-scroll-proportion="0.37955347">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/structtables.sql">
+    <entry file="file://$PROJECT_DIR$/modules/classes/Relatorios.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="3" selection-start="0" selection-end="4371" vertical-scroll-proportion="0.71915394">
+        <state line="80" column="9" selection-start="3505" selection-end="3505" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/date.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="898" column="9" selection-start="25353" selection-end="25353" vertical-scroll-proportion="0.3482309">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/classes/Clientes.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="245" column="9" selection-start="6186" selection-end="6186" vertical-scroll-proportion="0.29882812">
           <folding />
         </state>
       </provider>
