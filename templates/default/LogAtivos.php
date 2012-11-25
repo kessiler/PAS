@@ -69,10 +69,10 @@ if (isset($_SESSION[SESSION_NAME])): ?>
             $Rel = new Relatorios();
             $Rel->setNameRel("logativos".date('Y-m-d-G-i-s').".pdf");
             if(isset($_POST['submitA'])) {
-                $Rel->LogAtivos('I', $_POST['oper'], date('Y-m-d', strtotime($_POST['dtinicial'])), date('Y-m-d', strtotime($_POST['dtfinal'])));
+                $Rel->LogAtivos('I', $_POST['oper'], $_POST['dtinicial'], $_POST['dtfinal']);
             } else {
                 if(isset($_POST['submitB'])) {
-                    $Rel->LogAtivos('D', $_POST['oper'], date('Y-m-d', strtotime($_POST['dtinicial'])), date('Y-m-d', strtotime($_POST['dtfinal'])));
+                    $Rel->LogAtivos('D', $_POST['oper'], $_POST['dtinicial'], $_POST['dtfinal']);
                 }
             }
         }

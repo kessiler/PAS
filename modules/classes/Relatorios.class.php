@@ -48,6 +48,14 @@ if (!class_exists('Relatorios')) {
             $pdf->Output(self::getNameRel(), $type);
         }
 
+        function dataMY($umadata) {
+
+            $mydata = substr($umadata,6,4)."-".substr($umadata,3,2)."/".substr($umadata,0,2);
+
+            return $mydata;
+
+        }
+
         public function LogAtivos($type, $typeLog, $dtinicial, $dtfinal)
         {
             $pdf = new FPDF("P", "pt", "A4");
@@ -63,6 +71,8 @@ if (!class_exists('Relatorios')) {
             $pdf->Cell(100, 20, utf8_decode('Data da Operação'), 1, 0, "L");
             $pdf->Cell(100, 20, utf8_decode('Nome do usuário'), 1, 0, "L");
             $pdf->SetFont('arial', '', 10);
+            $dtfinal = $this->dataMY($dtfinal);
+            $dtinicial = $this->dataMY($dtinicial);
             $this->execute("SELECT L.*, P.NMPRODUTO, U.CDNOME FROM LOGOPERACAO L, PRODUTOS P, USUARIOS U
                             WHERE L.CDUSUARIO = U.CDUSUARIO
                               AND P.CDPRODUTO = L.CDPRODUTO
